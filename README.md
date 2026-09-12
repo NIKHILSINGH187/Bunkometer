@@ -1,79 +1,62 @@
-# Bunkometer PRO — Attendance Safety & Bunk Simulator 🎓
+# Bunkometer — High-Seas 3D Attendance Tracker & Bunk Navigator ⚓🏴‍☠️
 
 ## Overview
-Every college student knows the 75% attendance anxiety — the constant mental math of:
-> *“How many classes can I actually skip without getting detained?”*  
-> *“If I miss next Monday, where does my percentage land?”*  
-> *“How many classes in a row do I need to attend to recover?”*
+**Bunkometer High-Seas Edition** is a modern, interactive attendance tracking dashboard set in an original **high-seas pirate adventure / maritime fantasy universe**.
 
-**Bunkometer PRO** turns that mental chaos into an interactive instrument cluster. Built for students who calculate risk before they calculate marks.
+Designed for college and university students who want to navigate their attendance voyage with precision and zero mental math.
 
 ---
 
-## What's New in v2.0 ✨
+## 🌟 Core Features & Highlights
 
-### 1. ⚡ 1-Tap Quick Attendance Logger
-- Don't waste time typing numbers every day.
-- Tap **`+ Attend`** or **`+ Bunk`** on any subject card to instantly record your class with 1 click.
-- Made a mistake? Tap **`Undo`** to immediately revert your last action.
+### 1. 🌊 Immersive 3D High-Seas Environment (100% Stable UI)
+* **Zero UI Shaking**: All 3D movement, ocean waves, clouds, rotating antique astrolabe, and the distant sailing pirate galleon exist **strictly in the background environment surrounding the UI**.
+* **Rock-Solid Interface**: The cards, inputs, buttons, and tables remain completely stable, crisp, and effortless to click and read on both mobile and desktop.
 
-### 2. 🔮 Interactive "What-If" Simulator
-- Test future scenarios before skipping!
-- Project attendance for any individual subject or across all subjects combined.
-- Steppers for:
-  - *“Attend next $N$ classes”*
-  - *“Bunk next $N$ classes”*
-- Live delta badge showing percentage gain/loss and resulting safe margin.
-- **“Apply to Subject”** button to commit simulation directly to your real records if desired.
+### 2. 🗺️ Bunk Navigator ("How Many Days Can I Bunk?")
+* Dedicated calculator that translates allowable class skips into **Full Calendar Days Off**.
+* Enter your **Classes Conducted Per Day** (e.g. 4 or 5 lectures).
+* Calculates:
+  * **Target Attendance** (e.g. 75%)
+  * **Current Attendance Rate**
+  * **Classes You Can Still Miss**
+  * **Full Days You Can Bunk**
+  * **Remaining Extra Single Classes** (shown separately without upward rounding).
 
-### 3. 📱 Responsive Cards & Table Layout
-- **Cards View**: Optimized for mobile phones with visual progress bars, status badges, and quick-action toolbars.
-- **Table View**: Dense spreadsheet style for desktop power users.
-- Switch between views anytime with one click.
+### 3. ⚓ Captain's Overview & Nautical Astrolabe Gauge
+* Synchronized 4-input cluster: **Total Held**, **Attended**, **Missed**, and **Target %** auto-harmonize with each other.
+* Brass astrolabe gauge with laser pointer and 3 distinct navigational states:
+  * 🟢 **Calm Waters (Safe)**: Emerald sea green & gold glow.
+  * 🟡 **Rough Seas (Warning)**: Lantern amber glow.
+  * 🔴 **Kraken's Reach (Below Target)**: Crimson alert with exact consecutive classes needed to recover.
 
-### 4. 🎯 Per-Subject Custom Targets
-- Customize attendance criteria per subject (e.g. 80% for Labs, 75% for Theory, 85% for Honors).
-- Default to global threshold or override on each subject card.
+### 4. 🔮 Voyage What-If Simulator
+* **"If I miss $X$ more classes"** live slider: Project your future percentage and margin instantly.
+* **Target Comparison Matrix**: Instant side-by-side view of allowable misses for **75%**, **80%**, **85%**, and **90%** attendance criteria.
 
-### 5. 🏦 Bunk Bank & Analytics Vault
-- **Bunk Bank**: Calculates total safe skips remaining across all passing subjects combined.
-- **Attendance Debt**: Sums up consecutive classes needed across all deficit subjects.
-- **High-Risk Alerts**: Highlights subjects currently in caution or detention zones.
+### 5. 📜 Fleet Logbook (Subject-Wise Tracking)
+* Track individual courses and practicals.
+* 1-tap quick action buttons: **`+ Attend`**, **`+ Bunk`**, and **`↩ Undo`**.
+* Per-subject target threshold override (e.g., 80% for Labs, 75% for Theory).
+* Total fleet summary and risk indicators.
 
-### 6. 💾 Backup & Data Portability
-- **Export Backup (`.json`)**: Download your full attendance record.
-- **Restore Backup (`.json`)**: Upload and restore anytime on any browser or phone.
-- **Download CSV Sheet**: Generate a clean spreadsheet with attendance stats for submissions.
-- **Copy Summary**: Formats a clean clipboard snippet for sharing.
-
-### 7. 🔊 Web Audio Feedback & PWA Ready
-- Subtle, satisfying audio synthesizer chimes when marking attendance (toggleable anytime).
-- **PWA Ready**: Install Bunkometer as an app on your Android / iOS home screen with offline support.
-
----
-
-## Tech Stack 🛠️
-- **HTML5 & CSS3** (Custom cyberpunk/instrument cluster dark theme, responsive grid/flexbox)
-- **Vanilla JavaScript** (Zero frameworks, zero dependencies, lightning fast)
-- **Web Audio API** (Pure mathematical synthesized sound chimes)
-- **Service Worker & Web App Manifest** (Offline PWA support)
-- **LocalStorage Engine** (100% private, client-side, zero tracking)
+### 6. 🏴‍☠️ Pirate's Vault (Backup & Portability)
+* Export & Restore JSON Ship Logs.
+* Download formatted CSV voyage sheets.
+* Copy instant text dispatch reports for WhatsApp/Discord.
+* 100% private, client-side, zero tracking, and offline PWA ready.
 
 ---
 
-## Quick Start 🚀
-Simply open `index.html` in any modern web browser:
-```bash
-# Clone the repository
-git clone https://github.com/your-username/bunkometer.git
-cd bunkometer
-
-# Open in browser
-start index.html  # On Windows
-# or open index.html on macOS / Linux
-```
+## 🛠️ Tech Stack
+- **HTML5 & Vanilla JavaScript** (Zero frameworks, lightning fast performance)
+- **HTML5 Canvas** (Lightweight multi-harmonic ocean waves & animated sailing galleon)
+- **Web Audio API** (Nautical bell and chime synthesis)
+- **CSS3 Glassmorphism** (Frosted dark obsidian & antique brass borders)
+- **Google Fonts**: Cinzel, Rajdhani, JetBrains Mono, Inter.
 
 ---
 
-## Privacy 🔒
-Everything lives and runs exclusively inside **your browser**. No cookies, no external servers, no tracking, and zero data collection.
+## 🚀 Live Demo
+- **GitHub Pages**: [https://nikhilsingh187.github.io/Bunkometer/](https://nikhilsingh187.github.io/Bunkometer/)
+- **Netlify**: [https://sweet-bubblegum-1c80ee.netlify.app](https://sweet-bubblegum-1c80ee.netlify.app)
