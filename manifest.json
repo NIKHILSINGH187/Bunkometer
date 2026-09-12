@@ -1,0 +1,17 @@
+{
+  "name": "Bunkometer — Attendance Safety Gauge",
+  "short_name": "Bunkometer",
+  "description": "Smart attendance safety gauge, bunk calculator & what-if simulator for college students.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#12151a",
+  "theme_color": "#12151a",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

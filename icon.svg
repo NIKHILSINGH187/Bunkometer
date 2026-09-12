@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#1f242f"/>
+      <stop offset="100%" stop-color="#12151a"/>
+    </radialGradient>
+    <linearGradient id="needleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4fd67a"/>
+      <stop offset="100%" stop-color="#28a745"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="100" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="210" fill="none" stroke="#2a2f3a" stroke-width="8"/>
+  <path d="M 96 350 A 180 180 0 0 1 170 130" fill="none" stroke="#ff5c5c" stroke-width="26" stroke-linecap="round"/>
+  <path d="M 180 120 A 180 180 0 0 1 290 95" fill="none" stroke="#f5b942" stroke-width="26" stroke-linecap="round"/>
+  <path d="M 305 98 A 180 180 0 0 1 416 350" fill="none" stroke="#4fd67a" stroke-width="26" stroke-linecap="round"/>
+  <!-- Dial Center -->
+  <circle cx="256" cy="300" r="32" fill="#20242e" stroke="#4fd67a" stroke-width="6"/>
+  <line x1="256" y1="300" x2="340" y2="160" stroke="#4fd67a" stroke-width="12" stroke-linecap="round"/>
+  <text x="256" y="420" font-family="'Rajdhani', sans-serif" font-weight="700" font-size="52" fill="#edf0f3" text-anchor="middle" letter-spacing="4">BUNKOMETER</text>
+</svg>
