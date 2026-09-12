@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bunkometer-v2';
+const CACHE_NAME = 'bunkometer-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -27,12 +27,26 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  // Navigation or asset request
   if (event.request.method !== 'GET') return;
+  // Network first for HTML, cache fallback
+  if (event.request.headers.get('accept')?.includes('text/html')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          if (response.status === 200) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then(c => c.put(event.request, copy));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(cached => {
       return cached || fetch(event.request).then(response => {
-        // Optionally cache new successful responses
         if (response.status === 200 && response.type === 'basic') {
           const resClone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, resClone));
