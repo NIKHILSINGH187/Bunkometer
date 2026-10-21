@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bunkometer-v5';
+const CACHE_NAME = 'bunkometer-v6';
 const ASSETS = [
   './',
   './index.html',

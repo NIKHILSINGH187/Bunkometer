@@ -9,7 +9,21 @@ Designed for college and university students who want to navigate their attendan
 
 ## 🌟 Core Features & Highlights
 
-### 1. 📅 Weekly Timetable & "Today's Voyage" 1-Tap Logger *(New in v4.0)*
+### 1. 🗓️ Interactive Calendar & Future Bunk Simulator *(New in v4.1)*
+* **Touch-to-Preview Future Dates**: Tap on any future calendar date to instantly view its scheduled timetable lectures and simulate the exact impact if you take leave on that day.
+* **Instant Future Mathematical Projection**:
+  * Projected attendance percentage drop (e.g. `81.8%` $\to$ `78.2%`).
+  * Safety verdict: 🟢 Safe, 🟡 Caution, or 🔴 Detention Risk.
+  * Remaining safe bunk margin after taking the leave.
+* **Multi-Day Planned Leaves Bank**: Bookmark upcoming dates as planned leaves (festivals, events, long weekends); view cumulative projected attendance across your entire semester.
+* **Past & Today Attendance Logging**: Color-coded date dots matching the standard attendance scheme:
+  * 🟢 **Full Day**: Attended all scheduled lectures.
+  * 🟡 **Partial**: Attended some, missed some.
+  * 🔴 **Absent / Bunked**: Missed the full day.
+  * ⚪ **Holiday**: Scheduled rest day or college holiday.
+* **Refined Monthly Card**: Modern calendar layout with month navigation (`<` and `>`), "Today" quick jump, and active day highlight.
+
+### 2. 📅 Weekly Timetable & "Today's Voyage" 1-Tap Logger
 * **Today's Classes at a Glance**: Automatically detects today's day of the week and displays scheduled lectures with 1-tap **`+ Attend ⚓`**, **`+ Bunk 🏴‍☠️`**, and **`↩ Undo`** action buttons.
 * **Whole-Day Fast Actions**: Log all lectures for the day as attended (`⚡ Mark Whole Day Attended`) or missed with a single tap.
 * **Day Switcher**: Seamlessly toggle between Monday through Saturday to review or log past or future days directly from the overview.

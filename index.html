@@ -1515,6 +1515,439 @@
   }
   footer b { color: var(--gold); }
 
+    /* ================= 13. INTERACTIVE CALENDAR & FUTURE SIMULATOR ================= */
+  .overview-cal-banner {
+    background: linear-gradient(135deg, rgba(18, 27, 44, 0.85), rgba(24, 36, 58, 0.75));
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.22s ease;
+  }
+  .overview-cal-banner:hover {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(24, 36, 58, 0.95), rgba(30, 48, 76, 0.85));
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4), 0 0 18px var(--brass-glow);
+    transform: translateY(-1px);
+  }
+  .overview-cal-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .overview-cal-icon {
+    font-size: 28px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.3));
+  }
+  .overview-cal-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--text-gold);
+    letter-spacing: 0.02em;
+  }
+  .overview-cal-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+
+  .cal-planned-banner {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(239, 68, 68, 0.08));
+    border: 1px solid var(--gold);
+    border-radius: 14px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  }
+
+  .cal-card {
+    background: var(--panel-card);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 26px 28px 22px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(14px);
+    max-width: 580px;
+    margin: 0 auto;
+    position: relative;
+    transition: all 0.25s ease;
+  }
+  @media (max-width: 600px) {
+    .cal-card {
+      padding: 18px 14px 16px;
+      border-radius: 18px;
+    }
+  }
+
+  .cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .cal-month-title {
+    font-family: var(--pirate);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .cal-nav-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cal-today-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--disp);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .cal-today-btn:hover {
+    background: rgba(245, 158, 11, 0.15);
+    border-color: var(--gold);
+    color: var(--gold-bright);
+  }
+  .cal-nav-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: var(--text);
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .cal-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .cal-weekdays div {
+    font-family: var(--body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 0;
+  }
+
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    row-gap: 8px;
+    column-gap: 4px;
+    margin-bottom: 22px;
+  }
+
+  .cal-day-cell {
+    position: relative;
+    height: 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+    padding: 2px;
+    outline: none;
+  }
+  @media (max-width: 600px) {
+    .cal-day-cell {
+      height: 44px;
+    }
+  }
+  .cal-day-cell:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .cal-day-cell.cal-other-month {
+    opacity: 0.35;
+  }
+  .cal-day-cell.cal-other-month .cal-day-num {
+    color: var(--muted);
+  }
+
+  .cal-day-num {
+    font-family: var(--disp);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  /* Selected Day Box: matches the exact highlighted box around 21 in user's image! */
+  .cal-day-cell.is-selected {
+    border: 1.5px solid #94a3b8;
+    border-radius: 10px;
+    background: rgba(148, 163, 184, 0.12);
+  }
+  .cal-day-cell.is-selected .cal-day-num {
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  /* Today indicator */
+  .cal-day-cell.is-today:not(.is-selected) {
+    border: 1.5px dashed var(--gold);
+    border-radius: 10px;
+  }
+  .cal-day-cell.is-today .cal-day-num {
+    color: var(--gold-bright);
+  }
+
+  /* Planned Future Bunk indicator */
+  .cal-day-cell.is-planned {
+    background: rgba(239, 68, 68, 0.12);
+  }
+  .cal-day-cell.is-planned::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--danger);
+    box-shadow: 0 0 6px var(--danger);
+  }
+
+  /* Dots */
+  .cal-dot-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 6px;
+    margin-top: 4px;
+  }
+  .cal-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .cal-dot.full {
+    background: #34d399; /* pastel emerald */
+  }
+  .cal-dot.partial {
+    background: #fbbf24; /* pastel amber */
+  }
+  .cal-dot.absent {
+    background: #f87171; /* pastel coral */
+  }
+  .cal-dot.holiday {
+    background: #94a3b8; /* pastel slate */
+  }
+  .cal-dot.planned {
+    background: #ef4444;
+    box-shadow: 0 0 6px #ef4444;
+  }
+
+  /* Legend row matching screenshot */
+  .cal-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  @media (max-width: 600px) {
+    .cal-legend {
+      gap: 12px;
+      font-size: 12px;
+    }
+  }
+  .cal-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: var(--body);
+  }
+  .cal-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .cal-legend-dot.full { background: #34d399; }
+  .cal-legend-dot.partial { background: #fbbf24; }
+  .cal-legend-dot.absent { background: #f87171; }
+  .cal-legend-dot.holiday { background: #94a3b8; }
+
+  /* Subtext from screenshot */
+  .cal-subtext {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 16px auto 26px;
+    font-family: var(--body);
+    letter-spacing: 0.01em;
+  }
+
+  /* Day Inspector Card */
+  .cal-inspector-card {
+    background: var(--panel-card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 24px;
+    margin-top: 20px;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.35);
+    animation: fadeInInspector 0.25s ease;
+  }
+  @keyframes fadeInInspector {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .cal-inspector-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 16px;
+    margin-bottom: 18px;
+  }
+  .cal-inspector-date {
+    font-family: var(--pirate);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+  }
+  .cal-inspector-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-family: var(--mono);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .cal-inspector-badge.future {
+    background: rgba(147, 51, 234, 0.15);
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    color: #d8b4fe;
+  }
+  .cal-inspector-badge.today {
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold-bright);
+  }
+  .cal-inspector-badge.past {
+    background: rgba(148, 163, 184, 0.15);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    color: var(--muted);
+  }
+
+  /* Future Simulation Box */
+  .cal-future-sim-box {
+    background: linear-gradient(135deg, rgba(30, 27, 75, 0.45), rgba(15, 23, 42, 0.7));
+    border: 1px solid rgba(168, 85, 247, 0.35);
+    border-radius: 16px;
+    padding: 18px;
+    margin-top: 16px;
+  }
+  .cal-sim-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .cal-sim-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #d8b4fe;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cal-proj-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .cal-proj-card {
+    background: rgba(10, 15, 28, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .cal-proj-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .cal-proj-val {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 3px;
+  }
+  .cal-proj-sub {
+    font-size: 10.5px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .cal-subject-impact-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: rgba(8, 14, 25, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+
   [hidden] { display: none !important; }
 </style>
 </head>
@@ -1563,6 +1996,7 @@
   <!-- ================= TABS ================= -->
   <nav class="tabs">
     <button class="tab-btn active" data-tab="dashboard">⚓ Overview</button>
+    <button class="tab-btn" data-tab="calendar">🗓️ Calendar</button>
     <button class="tab-btn" data-tab="timetable">📅 Timetable</button>
     <button class="tab-btn" data-tab="navigator">🗺️ Bunk Days</button>
     <button class="tab-btn" data-tab="simulator">🔮 What-If</button>
@@ -1653,6 +2087,20 @@
       </button>
     </div>
 
+    <!-- ================= 🗓️ CALENDAR & FUTURE SIMULATOR SHORTCUT ================= -->
+    <div class="overview-cal-banner" id="btnJumpToCalendar" title="Open Interactive Calendar & Future Bunk Simulator">
+      <div class="overview-cal-left">
+        <div class="overview-cal-icon">🗓️</div>
+        <div>
+          <div class="overview-cal-title">Interactive Calendar & Future Bunk Simulator</div>
+          <div class="overview-cal-desc">Touch any date to inspect daily timetable, forecast attendance drops, and simulate future leaves.</div>
+        </div>
+      </div>
+      <button class="btn-action-primary btn-attend" style="margin: 0; padding: 8px 16px; font-size: 12.5px; white-space: nowrap;">
+        Open Calendar ➔
+      </button>
+    </div>
+
     <!-- ================= TODAY'S VOYAGE (1-TAP CLASS LOGGER) ================= -->
     <div class="today-voyage-card" id="todayVoyageCard">
       <div class="today-voyage-head">
@@ -1710,6 +2158,92 @@
     <div class="panel-foot">
       <span class="save-note">Auto-saved to Captain's Log in your browser · No servers</span>
       <button class="btn-reset-danger" id="resetQuick">Reset Counters</button>
+    </div>
+  </section>
+
+  <!-- ================= TAB: INTERACTIVE CALENDAR & FUTURE SIMULATOR ================= -->
+  <section id="tab-calendar" class="panel" hidden>
+    <div class="captain-heading" style="font-size: 18px; margin-bottom: 6px;">
+      🗓️ Interactive Calendar & Future Bunk Simulator
+    </div>
+    <div style="font-size: 13.5px; color: var(--muted); margin-bottom: 18px;">
+      Touch any date to inspect scheduled classes, simulate future leaves, and preview exactly how bunking will impact your attendance threshold.
+    </div>
+
+    <!-- Active Planned Leaves Summary Bar -->
+    <div class="cal-planned-banner" id="calPlannedSummaryBanner" style="display: none;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 20px;">📌</span>
+        <div>
+          <div style="font-size: 13.5px; font-weight: 700; color: var(--gold-bright);" id="calPlannedSummaryTitle">2 Days Planned for Leave</div>
+          <div style="font-size: 12px; color: var(--muted);" id="calPlannedSummaryText">Projected Attendance: 76.5% (Safe)</div>
+        </div>
+      </div>
+      <button class="btn-undo" id="btnClearAllPlannedLeaves" style="padding: 5px 12px; font-size: 12px;">Clear All Planned</button>
+    </div>
+
+    <!-- The Calendar Card (faithful to user reference image) -->
+    <div class="cal-card">
+      <div class="cal-header">
+        <div class="cal-title-wrap">
+          <h2 class="cal-month-title" id="calMonthTitle">October 2026</h2>
+        </div>
+        <div class="cal-nav-group">
+          <button class="cal-today-btn" id="calTodayBtn" title="Jump to Current Month & Today">Today</button>
+          <button class="cal-nav-btn" id="calPrevBtn" title="Previous Month" aria-label="Previous Month">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="cal-nav-btn" id="calNextBtn" title="Next Month" aria-label="Next Month">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Weekday column labels: S M T W T F S -->
+      <div class="cal-weekdays">
+        <div>S</div>
+        <div>M</div>
+        <div>T</div>
+        <div>W</div>
+        <div>T</div>
+        <div>F</div>
+        <div>S</div>
+      </div>
+
+      <!-- Month days grid -->
+      <div class="cal-grid" id="calGrid">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Legend bar at bottom of calendar card -->
+      <div class="cal-legend">
+        <div class="cal-legend-item">
+          <span class="cal-legend-dot full"></span>
+          <span>Full day</span>
+        </div>
+        <div class="cal-legend-item">
+          <span class="cal-legend-dot partial"></span>
+          <span>Partial</span>
+        </div>
+        <div class="cal-legend-item">
+          <span class="cal-legend-dot absent"></span>
+          <span>Absent</span>
+        </div>
+        <div class="cal-legend-item">
+          <span class="cal-legend-dot holiday"></span>
+          <span>Holiday</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subtext below card (from reference image) -->
+    <div class="cal-subtext">
+      75% is the typical minimum requirement — track accordingly.
+    </div>
+
+    <!-- Day Inspector & Future Impact Simulator Container -->
+    <div class="cal-day-inspector-card" id="calDayInspector">
+      <!-- Dynamically filled with selected date information and simulator -->
     </div>
   </section>
 
@@ -2396,6 +2930,33 @@
     persistState(state);
   }
 
+  if (!state.calendarHistory) {
+    state.calendarHistory = {};
+    // Pre-seed realistic past attendance dots for October 2026 matching screenshot demo
+    state.calendarHistory["2026-10-01"] = "full";
+    state.calendarHistory["2026-10-02"] = "full";
+    state.calendarHistory["2026-10-03"] = "partial";
+    state.calendarHistory["2026-10-04"] = "holiday";
+    state.calendarHistory["2026-10-05"] = "full";
+    state.calendarHistory["2026-10-06"] = "full";
+    state.calendarHistory["2026-10-07"] = "full";
+    state.calendarHistory["2026-10-08"] = "partial";
+    state.calendarHistory["2026-10-09"] = "full";
+    state.calendarHistory["2026-10-10"] = "full";
+    state.calendarHistory["2026-10-11"] = "holiday";
+    state.calendarHistory["2026-10-12"] = "full";
+    state.calendarHistory["2026-10-13"] = "full";
+    state.calendarHistory["2026-10-14"] = "absent";
+    state.calendarHistory["2026-10-15"] = "full";
+    state.calendarHistory["2026-10-16"] = "full";
+    state.calendarHistory["2026-10-17"] = "partial";
+    state.calendarHistory["2026-10-18"] = "holiday";
+    state.calendarHistory["2026-10-19"] = "full";
+    state.calendarHistory["2026-10-20"] = "full";
+    persistState(state);
+  }
+  if (!state.plannedLeaves) state.plannedLeaves = [];
+
   const realDayNum = new Date().getDay(); // 0 = Sun, 1 = Mon, ..., 6 = Sat
   let selectedDayKey = (realDayNum >= 1 && realDayNum <= 6) ? String(realDayNum) : "1";
 
@@ -2628,6 +3189,7 @@
     renderTodayVoyage();
     renderTimetable();
     renderBunkRadar();
+    renderCalendar();
   }
 
   function updateSliderProjection(total, attended, required){
@@ -3064,6 +3626,389 @@
   }
   setupDayPillListeners("overviewDayPills");
   setupDayPillListeners("ttDayPills");
+
+  /* ================= 9. INTERACTIVE CALENDAR & FUTURE SIMULATOR LOGIC ================= */
+  let currentCalDate = new Date(); // Month currently being navigated
+  let selectedCalDate = new Date(); // Date currently selected (defaults to today)
+  let tempSimulatedDateKey = null;
+
+  function formatDateKey(dt) {
+    const y = dt.getFullYear();
+    const m = String(dt.getMonth() + 1).padStart(2, '0');
+    const d = String(dt.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
+  function parseDateKey(k) {
+    const parts = k.split("-").map(Number);
+    return new Date(parts[0], parts[1] - 1, parts[2]);
+  }
+
+  function renderCalendar() {
+    const monthTitle = document.getElementById("calMonthTitle");
+    const grid = document.getElementById("calGrid");
+    const plannedBanner = document.getElementById("calPlannedSummaryBanner");
+    const plannedTitle = document.getElementById("calPlannedSummaryTitle");
+    const plannedText = document.getElementById("calPlannedSummaryText");
+
+    if (!monthTitle || !grid) return;
+
+    const year = currentCalDate.getFullYear();
+    const month = currentCalDate.getMonth();
+
+    // Title: e.g. "October 2026"
+    monthTitle.textContent = currentCalDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+    // Planned Leaves Summary Banner
+    const planned = state.plannedLeaves || [];
+    if (planned.length > 0) {
+      if (plannedBanner) plannedBanner.style.display = "flex";
+      
+      let totalPlannedClasses = 0;
+      planned.forEach(k => {
+        const dt = parseDateKey(k);
+        const dow = dt.getDay();
+        const slots = (dow >= 1 && dow <= 6) ? ((state.timetable && state.timetable[String(dow)]) || []) : [];
+        totalPlannedClasses += slots.length;
+      });
+
+      const total = parseInt(qTotal.value, 10) || 0;
+      const attended = Math.min(parseInt(qAttended.value, 10) || 0, total);
+      const req = parseInt(qRequired.value, 10) || 75;
+
+      const projTotal = total + totalPlannedClasses;
+      const projRate = projTotal > 0 ? (attended / projTotal) * 100 : 0;
+      const safeLeft = Math.floor((attended - projTotal * (req / 100)) / (req / 100));
+
+      if (plannedTitle) {
+        plannedTitle.textContent = `${planned.length} Day${planned.length === 1 ? '' : 's'} Planned for Leave (${totalPlannedClasses} lectures missed)`;
+      }
+      if (plannedText) {
+        if (projRate >= req) {
+          plannedText.innerHTML = `Projected Final Standing: <b style="color:var(--safe);">${projRate.toFixed(1)}%</b> · Calm Waters 🟢 (${safeLeft} safe classes left)`;
+        } else {
+          plannedText.innerHTML = `Projected Final Standing: <b style="color:var(--danger);">${projRate.toFixed(1)}%</b> · Storm Alert 🔴 (Drops ${(req - projRate).toFixed(1)}% below ${req}% threshold)`;
+        }
+      }
+    } else {
+      if (plannedBanner) plannedBanner.style.display = "none";
+    }
+
+    // Grid Construction
+    const firstDayIndex = new Date(year, month, 1).getDay(); // 0 = Sun, 1 = Mon ...
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+    grid.innerHTML = "";
+
+    // 1. Previous Month Trailing Days
+    for (let i = firstDayIndex - 1; i >= 0; i--) {
+      const dayNum = daysInPrevMonth - i;
+      const prevDate = new Date(year, month - 1, dayNum);
+      const prevKey = formatDateKey(prevDate);
+      const cell = createCalCell(prevDate, prevKey, dayNum, true);
+      grid.appendChild(cell);
+    }
+
+    // 2. Current Month Days
+    for (let d = 1; d <= daysInMonth; d++) {
+      const curDate = new Date(year, month, d);
+      const curKey = formatDateKey(curDate);
+      const cell = createCalCell(curDate, curKey, d, false);
+      grid.appendChild(cell);
+    }
+
+    // 3. Next Month Leading Days (fill up to total cells 35 or 42)
+    const totalRendered = firstDayIndex + daysInMonth;
+    const nextDaysNeeded = (totalRendered <= 35) ? (35 - totalRendered) : (42 - totalRendered);
+    for (let n = 1; n <= nextDaysNeeded; n++) {
+      const nextDate = new Date(year, month + 1, n);
+      const nextKey = formatDateKey(nextDate);
+      const cell = createCalCell(nextDate, nextKey, n, true);
+      grid.appendChild(cell);
+    }
+
+    renderDayInspector(selectedCalDate);
+  }
+
+  function createCalCell(dt, key, dayNum, isOtherMonth) {
+    const cell = document.createElement("button");
+    cell.className = "cal-day-cell";
+    if (isOtherMonth) cell.classList.add("cal-other-month");
+
+    const todayKey = formatDateKey(new Date());
+    const selectedKey = formatDateKey(selectedCalDate);
+
+    if (key === selectedKey) cell.classList.add("is-selected");
+    if (key === todayKey) cell.classList.add("is-today");
+
+    const isPlanned = (state.plannedLeaves || []).includes(key);
+    if (isPlanned) cell.classList.add("is-planned");
+
+    // Number
+    const numSpan = document.createElement("span");
+    numSpan.className = "cal-day-num";
+    numSpan.textContent = dayNum;
+    cell.appendChild(numSpan);
+
+    // Dot Container
+    const dotWrap = document.createElement("span");
+    dotWrap.className = "cal-dot-container";
+
+    const status = (state.calendarHistory && state.calendarHistory[key]);
+    if (isPlanned) {
+      const dot = document.createElement("span");
+      dot.className = "cal-dot planned";
+      dot.title = "Planned Leave Day";
+      dotWrap.appendChild(dot);
+    } else if (status) {
+      const dot = document.createElement("span");
+      dot.className = `cal-dot ${status}`;
+      dot.title = status.charAt(0).toUpperCase() + status.slice(1);
+      dotWrap.appendChild(dot);
+    } else if (dt.getDay() === 0 && !isOtherMonth) {
+      const dot = document.createElement("span");
+      dot.className = "cal-dot holiday";
+      dot.title = "Sunday / Holiday";
+      dotWrap.appendChild(dot);
+    }
+    cell.appendChild(dotWrap);
+
+    // Click event to select and inspect
+    cell.addEventListener("click", () => {
+      selectedCalDate = dt;
+      if (isOtherMonth) {
+        currentCalDate = new Date(dt.getFullYear(), dt.getMonth(), 1);
+      }
+      tempSimulatedDateKey = null;
+      playNauticalChime('click');
+      renderCalendar();
+    });
+
+    return cell;
+  }
+
+  function renderDayInspector(date) {
+    const container = document.getElementById("calDayInspector");
+    if (!container) return;
+
+    const dateKey = formatDateKey(date);
+    const dayOfWeek = date.getDay(); // 0 = Sun, 1 = Mon ... 6 = Sat
+    const dayName = (dayOfWeek === 0) ? "Sunday" : (DAY_NAMES[String(dayOfWeek)] || "Weekday");
+
+    // Diff in days from today
+    const now = new Date();
+    const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const targetMidnight = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const diffDays = Math.round((targetMidnight - todayMidnight) / (1000 * 60 * 60 * 24));
+
+    const isToday = (diffDays === 0);
+    const isFuture = (diffDays > 0);
+    const isPast = (diffDays < 0);
+
+    let badgeClass = isToday ? "today" : (isFuture ? "future" : "past");
+    let badgeText = isToday ? "⚓ Today" : (isFuture ? `🔮 Future · In ${diffDays} day${diffDays === 1 ? '' : 's'}` : `📜 Past · ${Math.abs(diffDays)} day${Math.abs(diffDays) === 1 ? '' : 's'} ago`);
+
+    const formattedDate = date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Timetable lectures on this day
+    const slots = (dayOfWeek >= 1 && dayOfWeek <= 6) ? ((state.timetable && state.timetable[String(dayOfWeek)]) || []) : [];
+    const isPlanned = (state.plannedLeaves || []).includes(dateKey);
+
+    // Current general counters
+    const total = parseInt(qTotal.value, 10) || 0;
+    const attended = Math.min(parseInt(qAttended.value, 10) || 0, total);
+    const req = parseInt(qRequired.value, 10) || 75;
+    const baseAnalysis = analyzeAttendance(total, attended, req);
+
+    let html = `
+      <div class="cal-inspector-card">
+        <div class="cal-inspector-head">
+          <div>
+            <div class="cal-inspector-date">${formattedDate}</div>
+            <div style="font-size: 13px; color: var(--muted);">
+              ${dayName} Schedule · <b>${slots.length}</b> lecture${slots.length === 1 ? '' : 's'} scheduled
+            </div>
+          </div>
+          <span class="cal-inspector-badge ${badgeClass}">${badgeText}</span>
+        </div>
+    `;
+
+    // 1. Timetable Schedule List
+    if (dayOfWeek === 0 || slots.length === 0) {
+      html += `
+        <div style="padding: 16px; background: rgba(8, 14, 25, 0.5); border: 1px dashed var(--line); border-radius: 12px; text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 16px;">
+          🏝️ Port Rest Day / Weekend — No lectures scheduled on ${dayName}. Safe voyage with 0 impact!
+        </div>
+      `;
+    } else {
+      html += `<div style="margin-bottom: 16px;">
+        <div style="font-size: 12px; font-family: var(--mono); color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">
+          Scheduled Lectures (${slots.length})
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+      `;
+      slots.forEach((slot, idx) => {
+        const sub = state.subjects.find(s => s.id === slot.subId);
+        const name = sub ? sub.name : (slot.customName || `Slot ${idx + 1}`);
+        const held = sub ? (parseInt(sub.held, 10) || 0) : 0;
+        const att = sub ? Math.min(parseInt(sub.attended, 10) || 0, held) : 0;
+        const subRate = held > 0 ? ((att / held) * 100).toFixed(1) + '%' : '—';
+        html += `
+          <div class="cal-subject-impact-item">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-family: var(--mono); font-size: 11px; color: var(--gold-bright);">${escapeHtml(slot.time || ('Slot ' + (idx + 1)))}</span>
+              <span style="font-weight: 600; color: var(--text);">${escapeHtml(name)}</span>
+            </div>
+            <span style="font-family: var(--mono); font-size: 12px; color: var(--muted);">Standing: <b>${subRate}</b></span>
+          </div>
+        `;
+      });
+      html += `</div></div>`;
+    }
+
+    // 2. FUTURE PROJECTION ENGINE ("Future wala dekhle")
+    if (isFuture || isToday) {
+      const skipCount = slots.length;
+      const projTotal = total + skipCount;
+      const projAttended = attended; // skipped
+      const projAnalysis = analyzeAttendance(projTotal, projAttended, req);
+      const deltaPct = projAnalysis.pct - baseAnalysis.pct;
+
+      let verdictPillClass = projAnalysis.status;
+      let verdictHeading = "";
+      let verdictNote = "";
+
+      if (skipCount === 0) {
+        verdictPillClass = "safe";
+        verdictHeading = "🏝️ Free Port Day";
+        verdictNote = "No lectures scheduled. Bunking impact is zero.";
+      } else if (projAnalysis.status === 'safe') {
+        verdictHeading = "🟢 Safe to Bunk Full Day";
+        verdictNote = `Calm waters! If you skip all ${skipCount} lectures, your overall attendance drops to <b>${projAnalysis.pct.toFixed(1)}%</b> (${deltaPct.toFixed(1)}%), comfortably above your <b>${req}%</b> target. You will have <b>${projAnalysis.safeBunks} safe classes left</b>.`;
+      } else if (projAnalysis.status === 'warn') {
+        verdictHeading = "🟡 Caution Day";
+        verdictNote = `Rough seas ahead! Bunking this day drops you to <b>${projAnalysis.pct.toFixed(1)}%</b> (${(req - projAnalysis.pct).toFixed(1)}% below ${req}% target). You would need ${projAnalysis.classesNeeded} consecutive classes to steer back.`;
+      } else {
+        verdictHeading = "🔴 Detention Alert — DO NOT BUNK";
+        verdictNote = `Storm Warning! Skipping all ${skipCount} classes crashes your attendance to <b>${projAnalysis.pct.toFixed(1)}%</b>! You will breach the minimum ${req}% threshold and face detention.`;
+      }
+
+      html += `
+        <div class="cal-future-sim-box">
+          <div class="cal-sim-header">
+            <div class="cal-sim-title">
+              <span>🔮 Future Bunk Projection Engine</span>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button class="btn-action-primary ${isPlanned ? 'btn-miss' : 'btn-attend'}" id="btnTogglePlanLeave" style="padding: 6px 14px; font-size: 12px;">
+                ${isPlanned ? "📌 Remove from Planned Leaves" : "📌 Plan Leave on this Date"}
+              </button>
+            </div>
+          </div>
+
+          <!-- Impact Metrics Grid -->
+          <div class="cal-proj-grid">
+            <div class="cal-proj-card">
+              <div class="cal-proj-label">Current Standing</div>
+              <div class="cal-proj-val" style="color: var(--text-gold);">${baseAnalysis.status === 'idle' ? '0%' : baseAnalysis.pct.toFixed(1) + '%'}</div>
+              <div class="cal-proj-sub">${attended}/${total} classes</div>
+            </div>
+            <div class="cal-proj-card">
+              <div class="cal-proj-label">Projected If Bunked</div>
+              <div class="cal-proj-val" style="color: ${projAnalysis.status === 'safe' ? 'var(--safe)' : 'var(--danger)'};">
+                ${projAnalysis.pct.toFixed(1)}%
+              </div>
+              <div class="cal-proj-sub" style="color: ${deltaPct < 0 ? 'var(--danger)' : 'var(--muted)'};">
+                ${deltaPct < 0 ? deltaPct.toFixed(1) + '%' : '0%'} drop
+              </div>
+            </div>
+            <div class="cal-proj-card">
+              <div class="cal-proj-label">Bunks Remaining</div>
+              <div class="cal-proj-val" style="color: var(--safe);">${projAnalysis.safeBunks}</div>
+              <div class="cal-proj-sub">classes safe after this</div>
+            </div>
+          </div>
+
+          <!-- Future Verdict Banner -->
+          <div class="day-bunk-verdict-banner ${verdictPillClass}" style="margin: 12px 0 0;">
+            <div class="bunk-verdict-badge ${verdictPillClass}">${verdictHeading}</div>
+            <div class="bunk-verdict-text">${verdictNote}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 3. LOGGING FOR PAST / TODAY
+    if (isPast || isToday) {
+      const currentStatus = (state.calendarHistory && state.calendarHistory[dateKey]) || "";
+      html += `
+        <div style="margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+          <div style="font-size: 12px; font-family: var(--mono); color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">
+            ${isToday ? "Record Today's Attendance:" : "Log / Update Past Attendance:"}
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn-action-primary btn-attend" data-cal-action="mark-status" data-status="full" style="padding: 7px 12px; font-size: 12px; ${currentStatus === 'full' ? 'outline: 2px solid #34d399;' : ''}">
+              🟢 Full Day (${slots.length || 4} Attended)
+            </button>
+            <button class="btn-action-primary" data-cal-action="mark-status" data-status="partial" style="padding: 7px 12px; font-size: 12px; background: rgba(245, 158, 11, 0.2); border-color: var(--warn); color: var(--gold-bright); ${currentStatus === 'partial' ? 'outline: 2px solid #fbbf24;' : ''}">
+              🟡 Partial Attendance
+            </button>
+            <button class="btn-action-primary btn-miss" data-cal-action="mark-status" data-status="absent" style="padding: 7px 12px; font-size: 12px; ${currentStatus === 'absent' ? 'outline: 2px solid #ef4444;' : ''}">
+              🔴 Bunked / Absent
+            </button>
+            <button class="btn-undo" data-cal-action="mark-status" data-status="holiday" style="padding: 7px 12px; font-size: 12px; ${currentStatus === 'holiday' ? 'outline: 2px solid #94a3b8;' : ''}">
+              ⚪ Holiday / Off
+            </button>
+            ${currentStatus ? `<button class="btn-reset-danger" data-cal-action="clear-status" style="padding: 7px 12px; font-size: 12px;">✕ Clear</button>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    html += `</div>`;
+    container.innerHTML = html;
+
+    // Attach Event Listeners inside Inspector
+    const btnTogglePlan = document.getElementById("btnTogglePlanLeave");
+    if (btnTogglePlan) {
+      btnTogglePlan.addEventListener("click", () => {
+        if (!state.plannedLeaves) state.plannedLeaves = [];
+        const idx = state.plannedLeaves.indexOf(dateKey);
+        if (idx >= 0) {
+          state.plannedLeaves.splice(idx, 1);
+          showToast(`Removed ${formattedDate} from planned leaves`);
+        } else {
+          state.plannedLeaves.push(dateKey);
+          showToast(`Planned leave marked for ${formattedDate} 📌`);
+        }
+        playNauticalChime('click');
+        persistState(state);
+        renderCalendar();
+      });
+    }
+
+    // Status Buttons (Full, Partial, Absent, Holiday)
+    container.querySelectorAll("[data-cal-action]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const action = btn.dataset.calAction;
+        if (!state.calendarHistory) state.calendarHistory = {};
+        if (action === 'mark-status') {
+          const status = btn.dataset.status;
+          state.calendarHistory[dateKey] = status;
+          playNauticalChime(status === 'full' ? 'attend' : (status === 'absent' ? 'miss' : 'click'));
+          showToast(`Marked ${date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} as ${status.toUpperCase()}!`);
+        } else if (action === 'clear-status') {
+          delete state.calendarHistory[dateKey];
+          playNauticalChime('click');
+          showToast(`Cleared status for ${date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`);
+        }
+        persistState(state);
+        renderCalendar();
+      });
+    });
+  }
+
 
   // Overview Today Slots Click Delegation
   const overviewSlotsList = document.getElementById("overviewSlotsList");
@@ -3694,6 +4639,7 @@
   const tabBtns = document.querySelectorAll(".tab-btn");
   const tabPanels = {
     dashboard: document.getElementById("tab-dashboard"),
+    calendar: document.getElementById("tab-calendar"),
     timetable: document.getElementById("tab-timetable"),
     navigator: document.getElementById("tab-navigator"),
     simulator: document.getElementById("tab-simulator"),
@@ -3709,8 +4655,62 @@
       Object.keys(tabPanels).forEach(key => {
         tabPanels[key].hidden = (key !== target);
       });
+      if (target === "calendar") renderCalendar();
     });
   });
+
+  // Calendar Controls Listeners
+  const calPrevBtn = document.getElementById("calPrevBtn");
+  if (calPrevBtn) {
+    calPrevBtn.addEventListener("click", () => {
+      currentCalDate = new Date(currentCalDate.getFullYear(), currentCalDate.getMonth() - 1, 1);
+      playNauticalChime('click');
+      renderCalendar();
+    });
+  }
+
+  const calNextBtn = document.getElementById("calNextBtn");
+  if (calNextBtn) {
+    calNextBtn.addEventListener("click", () => {
+      currentCalDate = new Date(currentCalDate.getFullYear(), currentCalDate.getMonth() + 1, 1);
+      playNauticalChime('click');
+      renderCalendar();
+    });
+  }
+
+  const calTodayBtn = document.getElementById("calTodayBtn");
+  if (calTodayBtn) {
+    calTodayBtn.addEventListener("click", () => {
+      currentCalDate = new Date();
+      selectedCalDate = new Date();
+      playNauticalChime('click');
+      renderCalendar();
+    });
+  }
+
+  const btnClearAllPlannedLeaves = document.getElementById("btnClearAllPlannedLeaves");
+  if (btnClearAllPlannedLeaves) {
+    btnClearAllPlannedLeaves.addEventListener("click", () => {
+      state.plannedLeaves = [];
+      playNauticalChime('click');
+      persistState(state);
+      renderCalendar();
+      showToast("Cleared all planned leave days");
+    });
+  }
+
+  const btnJumpToCalendar = document.getElementById("btnJumpToCalendar");
+  if (btnJumpToCalendar) {
+    btnJumpToCalendar.addEventListener("click", () => {
+      tabBtns.forEach(b => b.classList.toggle("active", b.dataset.tab === "calendar"));
+      Object.keys(tabPanels).forEach(key => {
+        if (tabPanels[key]) tabPanels[key].hidden = (key !== "calendar");
+      });
+      playNauticalChime('click');
+      renderCalendar();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   /* ================= 11. TOAST NOTIFICATIONS ================= */
   const toastContainer = document.getElementById("toastContainer");
