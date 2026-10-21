@@ -78,26 +78,14 @@
     z-index: 0;
   }
 
-  /* Antique Brass Nautical Compass Rose Rotating in the Deep Background */
-  .bg-astrolabe {
+  /* Sleek Atmospheric Vignette */
+  .bg-glow-vignette {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 820px;
-    height: 820px;
-    margin-top: -410px;
-    margin-left: -410px;
+    top: 0; left: 0; right: 0; bottom: 0;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.045;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Ccircle cx='250' cy='250' r='230' fill='none' stroke='%23f59e0b' stroke-width='2' stroke-dasharray='4 8'/%3E%3Ccircle cx='250' cy='250' r='180' fill='none' stroke='%23f59e0b' stroke-width='3'/%3E%3Cpolygon points='250,20 268,220 480,250 268,280 250,480 232,280 20,250 232,220' fill='none' stroke='%23f59e0b' stroke-width='2'/%3E%3Cpolygon points='250,50 262,238 450,250 262,262 250,450 238,262 50,250 238,238' fill='none' stroke='%23f59e0b' stroke-width='1'/%3E%3Ccircle cx='250' cy='250' r='12' fill='%23f59e0b'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-    animation: slowRotate 180s linear infinite;
-  }
-  @keyframes slowRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    background: radial-gradient(circle at 50% 15%, rgba(245, 158, 11, 0.05) 0%, transparent 65%),
+                radial-gradient(circle at 80% 85%, rgba(16, 185, 129, 0.04) 0%, transparent 50%);
   }
 
   /* ================= ROCK-SOLID, STABLE DASHBOARD CONTAINER ================= */
@@ -564,6 +552,128 @@
     transition: all .2s ease;
   }
   .btn-undo:hover { color: #fff; border-color: var(--gold); }
+
+  /* ================= 🏖️ DAILY LEAVE CALCULATOR ("HOW MANY DAYS CAN I BUNK?") ================= */
+  .daily-leave-calc-box {
+    background: linear-gradient(135deg, rgba(14, 22, 38, 0.95) 0%, rgba(9, 15, 27, 0.98) 100%);
+    border: 1px solid var(--line-active);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  @media (max-width: 680px){
+    .daily-leave-calc-box { grid-template-columns: 1fr; gap: 16px; }
+  }
+  .daily-leave-calc-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--safe), var(--gold));
+  }
+  .daily-leave-input-wrap label {
+    display: block;
+    font-family: var(--disp);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: var(--gold-bright);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+  .daily-leave-input-wrap .field-hint {
+    font-family: var(--body);
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .daily-leave-inp-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .daily-leave-inp {
+    width: 90px;
+    background: rgba(6, 11, 20, 0.95);
+    border: 1px solid var(--line);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 10px;
+    outline: none;
+    text-align: center;
+    transition: all .2s ease;
+  }
+  .daily-leave-inp:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 14px var(--brass-glow);
+  }
+  .daily-leave-result-card {
+    background: rgba(8, 14, 25, 0.75);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: border-color .3s ease;
+  }
+  .daily-leave-verdict-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .daily-leave-days-display {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .daily-leave-big-num {
+    font-family: var(--disp);
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--gold-bright);
+    text-shadow: 0 0 16px var(--brass-glow);
+  }
+  .daily-leave-big-unit {
+    font-family: var(--disp);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    color: #fff;
+  }
+  .daily-leave-odd {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--gold);
+    margin-left: auto;
+  }
+  .daily-leave-subtext {
+    font-family: var(--body);
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.45;
+  }
+  .daily-leave-subtext b { color: #fff; }
 
   /* ================= 📅 TODAY'S VOYAGE & TIMETABLE ================= */
   .today-voyage-card {
@@ -1059,16 +1169,21 @@
   .subject-list {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
   }
   .sub-voyage-card {
     background: var(--panel-card);
     border: 1px solid var(--line);
     border-radius: 16px;
-    padding: 18px 20px;
+    padding: 20px 22px;
     display: flex;
     flex-direction: column;
     gap: 14px;
+    transition: all .2s ease;
+  }
+  .sub-voyage-card:hover {
+    border-color: rgba(245, 158, 11, 0.4);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.6);
   }
   .sub-voyage-card.safe { border-left: 5px solid var(--safe); }
   .sub-voyage-card.warn { border-left: 5px solid var(--warn); }
@@ -1082,23 +1197,32 @@
     gap: 12px;
     flex-wrap: wrap;
   }
+  .sub-title-wrap {
+    flex: 1;
+    min-width: 240px;
+  }
   .sub-title-inp {
-    background: transparent;
-    border: 1px solid transparent;
+    background: rgba(8, 14, 25, 0.9);
+    border: 1px solid var(--line);
     color: #fff;
-    font-family: var(--pirate);
+    font-family: var(--body);
     font-weight: 700;
-    font-size: 19px;
-    padding: 3px 6px;
-    border-radius: 6px;
+    font-size: 16.5px;
+    padding: 9px 14px;
+    border-radius: 10px;
     width: 100%;
-    max-width: 320px;
     outline: none;
     transition: all .2s ease;
   }
-  .sub-title-inp:focus, .sub-title-inp:hover {
-    background: rgba(8, 13, 24, 0.8);
-    border-color: var(--line);
+  .sub-title-inp:focus {
+    background: rgba(12, 20, 36, 0.98);
+    border-color: var(--gold);
+    box-shadow: 0 0 14px var(--brass-glow);
+  }
+  .sub-title-inp::placeholder {
+    color: rgba(148, 163, 184, 0.5);
+    font-weight: 500;
+    font-size: 14.5px;
   }
 
   .sub-metric-badges {
@@ -1109,7 +1233,7 @@
   .sub-pct {
     font-family: var(--mono);
     font-weight: 700;
-    font-size: 22px;
+    font-size: 24px;
   }
   .sub-pct.safe { color: var(--safe); }
   .sub-pct.warn { color: var(--warn); }
@@ -1118,18 +1242,22 @@
 
   .sub-target-chip {
     font-family: var(--mono);
-    font-size: 11px;
-    color: var(--gold);
-    background: rgba(10, 16, 28, 0.8);
+    font-size: 11.5px;
+    color: var(--gold-bright);
+    background: rgba(10, 16, 28, 0.9);
     border: 1px solid var(--line);
-    padding: 3px 8px;
-    border-radius: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: all .2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
-  .sub-target-chip:hover { border-color: var(--gold); color: #fff; }
+  .sub-target-chip:hover { border-color: var(--gold); background: var(--panel-inner); color: #fff; }
 
   .sub-bar-track {
-    height: 7px;
+    height: 8px;
     background: rgba(255, 255, 255, 0.08);
     border-radius: 100px;
     overflow: hidden;
@@ -1143,43 +1271,67 @@
   .sub-bar-fill.warn { background: var(--warn); box-shadow: 0 0 8px var(--warn-glow); }
   .sub-bar-fill.danger { background: var(--danger); box-shadow: 0 0 8px var(--danger-glow); }
 
-  .sub-card-middle {
+  .sub-counts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 600px){
+    .sub-counts-grid { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  }
+  .sub-count-cell {
+    background: rgba(8, 14, 25, 0.7);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sub-count-lbl {
     font-family: var(--mono);
-    font-size: 12.5px;
+    font-size: 10px;
+    text-transform: uppercase;
     color: var(--muted);
-    flex-wrap: wrap;
-    gap: 10px;
+    letter-spacing: .08em;
   }
-  .sub-counts {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .sub-counts input {
-    background: rgba(8, 14, 25, 0.85);
+  .sub-count-inp {
+    width: 100%;
+    background: rgba(6, 11, 20, 0.95);
     border: 1px solid var(--line);
     color: #fff;
     font-family: var(--mono);
-    font-size: 13.5px;
-    width: 58px;
-    text-align: center;
-    padding: 4px 6px;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 6px 10px;
     border-radius: 6px;
     outline: none;
+    transition: all .2s ease;
   }
-  .sub-counts input:focus { border-color: var(--gold); }
+  .sub-count-inp:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 8px var(--brass-glow);
+  }
+  .sub-count-static-val {
+    font-family: var(--mono);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--muted);
+    padding: 6px 10px;
+  }
 
   .sub-status-desc {
     font-family: var(--body);
     font-weight: 600;
-    font-size: 13px;
+    font-size: 13.5px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: rgba(8, 14, 25, 0.65);
+    border: 1px solid var(--line);
   }
-  .sub-status-desc.safe { color: var(--safe); }
-  .sub-status-desc.warn { color: var(--warn); }
-  .sub-status-desc.danger { color: var(--danger); }
+  .sub-status-desc.safe { color: var(--safe); border-color: rgba(16, 185, 129, 0.3); }
+  .sub-status-desc.warn { color: var(--warn); border-color: rgba(245, 158, 11, 0.3); }
+  .sub-status-desc.danger { color: var(--danger); border-color: rgba(239, 68, 68, 0.3); }
 
   .sub-card-footer {
     display: flex;
@@ -1368,9 +1520,9 @@
 </head>
 <body>
 
-<!-- 3D High-Seas Ocean & Sailing Ship Environmental Canvas -->
+<!-- Cinematic 3D Ocean Wave & Stellar Atmospheric Canvas -->
 <canvas id="environmentalCanvas"></canvas>
-<div class="bg-astrolabe"></div>
+<div class="bg-glow-vignette"></div>
 
 <div class="dash">
 
@@ -1466,6 +1618,31 @@
       <div class="field">
         <label for="qRequired">Target % <span>(Required)</span></label>
         <input type="number" id="qRequired" min="1" max="100" value="75" />
+      </div>
+    </div>
+
+    <!-- ================= 🏖️ DAILY LEAVE CALCULATOR ("HOW MANY FULL DAYS CAN I BUNK?") ================= -->
+    <div class="daily-leave-calc-box" id="dailyLeaveCalcBox">
+      <div class="daily-leave-input-wrap">
+        <label for="qDailyClasses">Classes Conducted Per Day</label>
+        <div class="field-hint">How many lectures happen in 1 college day?</div>
+        <div class="daily-leave-inp-group">
+          <input type="number" id="qDailyClasses" min="1" max="15" value="4" class="daily-leave-inp" />
+          <span style="font-family: var(--mono); font-size: 13px; color: var(--gold-bright); font-weight: 600; white-space: nowrap;">lectures / day</span>
+        </div>
+      </div>
+      <div class="daily-leave-result-card" id="dailyLeaveResultCard">
+        <div class="daily-leave-verdict-title">
+          <span>🏖️ Full Days Leave Allowance</span>
+        </div>
+        <div class="daily-leave-days-display">
+          <div class="daily-leave-big-num" id="dailyLeaveBigNum">0</div>
+          <div class="daily-leave-big-unit" id="dailyLeaveBigUnit">FULL DAYS OFF</div>
+          <div class="daily-leave-odd" id="dailyLeaveOddClasses">+ 0 extra single classes</div>
+        </div>
+        <div class="daily-leave-subtext" id="dailyLeaveSubtext">
+          Adjust your class counts to calculate your full-day bunk allowance.
+        </div>
       </div>
     </div>
 
@@ -1732,7 +1909,7 @@
     <!-- Subject Cards Container -->
     <div class="subject-list" id="subjectListContainer"></div>
 
-    <button class="btn-add-voyage" id="btnAddSubject">＋ Add Another Course to Fleet</button>
+    <button class="btn-add-voyage" id="btnAddSubject">＋ Add New Course (e.g. Operating Systems)</button>
 
     <!-- Pirate Vault Export / Import Actions -->
     <div class="vault-hero" style="margin-top: 24px;">
@@ -1791,7 +1968,7 @@
 (function(){
   "use strict";
 
-  /* ================= 1. HIGH-SEAS 3D OCEAN & SHIP ENVIRONMENTAL CANVAS ================= */
+  /* ================= 1. REALISTIC 3D PERSPECTIVE OCEAN WAVE & STELLAR CANVAS ================= */
   const canvas = document.getElementById("environmentalCanvas");
   const ctx = canvas.getContext("2d");
 
@@ -1801,159 +1978,165 @@
   window.addEventListener("resize", () => {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
+    initStars();
   });
 
-  // Environmental elements (strictly background)
-  let shipX = -120;
-  const shipSpeed = 0.35;
-  let waveTick = 0;
+  // Cursor parallax easing
+  let mouseX = 0;
+  let mouseY = 0;
+  let targetMouseX = 0;
+  let targetMouseY = 0;
 
-  // Golden sea dust particles
-  const particles = [];
-  for (let i = 0; i < 45; i++){
-    particles.push({
+  window.addEventListener("mousemove", (e) => {
+    targetMouseX = (e.clientX - width / 2) * 0.08;
+    targetMouseY = (e.clientY - height / 2) * 0.05;
+  });
+
+  // 1. Realistic Multi-Magnitude Starfield
+  let stars = [];
+  function initStars(){
+    stars = [];
+    const count = Math.floor(Math.min(130, (width * height) / 9000));
+    for (let i = 0; i < count; i++){
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * (height * 0.65),
+        radius: Math.random() * 1.5 + 0.4,
+        alpha: Math.random() * 0.8 + 0.2,
+        twinkleSpeed: Math.random() * 0.03 + 0.008,
+        twinklePhase: Math.random() * Math.PI * 2,
+        isBlueGiant: Math.random() < 0.15
+      });
+    }
+  }
+  initStars();
+
+  // 2. Bioluminescent floating ocean embers
+  const biolumParticles = [];
+  for (let i = 0; i < 35; i++){
+    biolumParticles.push({
       x: Math.random() * width,
-      y: Math.random() * height,
-      size: Math.random() * 2.2 + 0.8,
-      speedY: -(Math.random() * 0.4 + 0.15),
-      speedX: (Math.random() - 0.5) * 0.3,
-      alpha: Math.random() * 0.6 + 0.2
+      y: Math.random() * height * 0.5 + height * 0.5,
+      size: Math.random() * 2 + 0.8,
+      speedY: -(Math.random() * 0.35 + 0.15),
+      speedX: (Math.random() - 0.5) * 0.25,
+      alpha: Math.random() * 0.6 + 0.25,
+      hue: Math.random() > 0.4 ? "245, 158, 11" : "16, 185, 129"
     });
   }
 
-  // Draw original silhouette galleon/pirate ship
-  function drawSailingShip(x, y, scale = 0.85, bob = 0) {
-    ctx.save();
-    ctx.translate(x, y + bob);
-    ctx.scale(scale, scale);
+  let waveClock = 0;
 
-    ctx.fillStyle = "rgba(7, 12, 22, 0.92)";
-    ctx.strokeStyle = "rgba(245, 158, 11, 0.4)";
-    ctx.lineWidth = 1.5;
-
-    // Hull
-    ctx.beginPath();
-    ctx.moveTo(-50, 10);
-    ctx.quadraticCurveTo(-65, 0, -80, -5);
-    ctx.lineTo(-75, 15);
-    ctx.quadraticCurveTo(-40, 32, 50, 28);
-    ctx.quadraticCurveTo(80, 18, 90, -8);
-    ctx.lineTo(82, -4);
-    ctx.quadraticCurveTo(55, 12, 0, 12);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-
-    // Masts
-    ctx.beginPath();
-    // Fore mast
-    ctx.moveTo(-25, 12); ctx.lineTo(-25, -60);
-    // Main mast
-    ctx.moveTo(15, 12); ctx.lineTo(15, -78);
-    // Mizzen mast
-    ctx.moveTo(55, 12); ctx.lineTo(55, -50);
-    // Bowsprit
-    ctx.moveTo(75, 0); ctx.lineTo(110, -18);
-    ctx.strokeStyle = "rgba(7, 12, 22, 0.95)";
-    ctx.lineWidth = 3;
-    ctx.stroke();
-
-    // Sails (Billowing in the wind)
-    ctx.fillStyle = "rgba(18, 28, 46, 0.85)";
-    // Fore sails
-    ctx.beginPath();
-    ctx.moveTo(-45, -20); ctx.quadraticCurveTo(-25, -12, -8, -20); ctx.quadraticCurveTo(-25, -45, -45, -45);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(-40, -48); ctx.quadraticCurveTo(-25, -42, -10, -48); ctx.quadraticCurveTo(-25, -62, -40, -62);
-    ctx.fill();
-
-    // Main sails
-    ctx.beginPath();
-    ctx.moveTo(-6, -22); ctx.quadraticCurveTo(15, -12, 36, -22); ctx.quadraticCurveTo(15, -52, -6, -52);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(-2, -54); ctx.quadraticCurveTo(15, -46, 32, -54); ctx.quadraticCurveTo(15, -72, -2, -72);
-    ctx.fill();
-
-    // Flag on main mast
-    ctx.beginPath();
-    ctx.moveTo(15, -78); ctx.lineTo(35, -73); ctx.lineTo(15, -68);
-    ctx.fillStyle = "rgba(245, 158, 11, 0.75)";
-    ctx.fill();
-
-    ctx.restore();
-  }
-
-  function renderEnvironment() {
+  function renderRealisticOcean() {
     ctx.clearRect(0, 0, width, height);
 
-    // 1. Sky Gradient
-    const skyGrad = ctx.createLinearGradient(0, 0, 0, height * 0.75);
-    skyGrad.addColorStop(0, "#050811");
-    skyGrad.addColorStop(0.5, "#0b1526");
-    skyGrad.addColorStop(1, "#181a33");
+    // Smooth cursor interpolation
+    mouseX += (targetMouseX - mouseX) * 0.05;
+    mouseY += (targetMouseY - mouseY) * 0.05;
+    waveClock += 0.016;
+
+    // 1. Deep Cosmic Sky Gradient
+    const skyGrad = ctx.createLinearGradient(0, 0, 0, height);
+    skyGrad.addColorStop(0, "#030611");
+    skyGrad.addColorStop(0.45, "#071122");
+    skyGrad.addColorStop(0.72, "#0a1d36");
+    skyGrad.addColorStop(1, "#050c18");
     ctx.fillStyle = skyGrad;
     ctx.fillRect(0, 0, width, height);
 
-    waveTick += 0.015;
-
-    // 2. Distant Horizon Waves
-    const horizonY = height * 0.78;
-    shipX += shipSpeed;
-    if (shipX > width + 140) shipX = -140;
-
-    const shipBob = Math.sin(waveTick * 2.5) * 5;
-    drawSailingShip(shipX, horizonY - 14, 0.75, shipBob);
-
-    // 3. Multi-harmonic Ocean Wave Layers
-    // Layer 1: Deep back wave
-    ctx.beginPath();
-    ctx.moveTo(0, height);
-    for (let x = 0; x <= width; x += 15){
-      const y = horizonY + Math.sin(x * 0.006 + waveTick * 1.5) * 14 + Math.cos(x * 0.012 + waveTick) * 8;
-      ctx.lineTo(x, y);
-    }
-    ctx.lineTo(width, height);
-    ctx.closePath();
-    ctx.fillStyle = "rgba(11, 31, 54, 0.85)";
-    ctx.fill();
-
-    // Layer 2: Mid wave
-    ctx.beginPath();
-    ctx.moveTo(0, height);
-    for (let x = 0; x <= width; x += 15){
-      const y = horizonY + 22 + Math.sin(x * 0.009 - waveTick * 1.8) * 18 + Math.cos(x * 0.005 + waveTick * 2) * 10;
-      ctx.lineTo(x, y);
-    }
-    ctx.lineTo(width, height);
-    ctx.closePath();
-    ctx.fillStyle = "rgba(7, 21, 38, 0.92)";
-    ctx.fill();
-
-    // Layer 3: Foam Crests
-    ctx.beginPath();
-    for (let x = 0; x <= width; x += 30){
-      const y = horizonY + 22 + Math.sin(x * 0.009 - waveTick * 1.8) * 18 + Math.cos(x * 0.005 + waveTick * 2) * 10;
-      ctx.arc(x, y, Math.random() * 1.5 + 1, 0, Math.PI * 2);
-    }
-    ctx.fillStyle = "rgba(186, 230, 253, 0.4)";
-    ctx.fill();
-
-    // 4. Golden treasure floating embers
-    particles.forEach(p => {
-      p.y += p.speedY;
-      p.x += p.speedX;
-      if (p.y < 0) { p.y = height + 10; p.x = Math.random() * width; }
+    // 2. Realistic Twinkling Stars
+    stars.forEach(st => {
+      const flicker = Math.sin(waveClock * 20 * st.twinkleSpeed + st.twinklePhase);
+      const a = Math.max(0.1, Math.min(1, st.alpha + flicker * 0.3));
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(245, 158, 11, ${p.alpha})`;
+      ctx.arc(st.x + mouseX * 0.05, st.y + mouseY * 0.05, st.radius, 0, Math.PI * 2);
+      ctx.fillStyle = st.isBlueGiant
+        ? `rgba(186, 230, 253, ${a})`
+        : `rgba(254, 240, 138, ${a * 0.9})`;
       ctx.fill();
     });
 
-    requestAnimationFrame(renderEnvironment);
+    // 3. Horizon Atmosphere Glow
+    const horizonY = height * 0.68 + mouseY * 0.4;
+    const vanishX = width * 0.5 + mouseX * 0.8;
+
+    const haze = ctx.createRadialGradient(vanishX, horizonY, 10, vanishX, horizonY, width * 0.7);
+    haze.addColorStop(0, "rgba(245, 158, 11, 0.12)");
+    haze.addColorStop(0.35, "rgba(16, 185, 129, 0.06)");
+    haze.addColorStop(1, "transparent");
+    ctx.fillStyle = haze;
+    ctx.fillRect(0, 0, width, height);
+
+    // 4. 3D Perspective Ocean Wave Mesh (Gerstner Simulation)
+    const numRows = 36;
+    const step = 22;
+
+    for (let r = 0; r < numRows; r++){
+      const z = Math.pow(r / numRows, 1.8);
+      const baseRowY = horizonY + (height - horizonY + 80) * z;
+      const waveAmp = (4 + 28 * z);
+      const alpha = Math.min(0.75, 0.08 + z * 0.65);
+
+      ctx.beginPath();
+      for (let x = 0; x <= width + step; x += step){
+        const disp1 = Math.sin(x * 0.007 + waveClock * 1.4 + z * 9) * waveAmp;
+        const disp2 = Math.cos(x * 0.015 - waveClock * 0.9 + z * 6) * (waveAmp * 0.45);
+        const y = baseRowY + disp1 + disp2;
+
+        if (x === 0){
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+
+      if (r === numRows - 1){
+        ctx.lineTo(width, height);
+        ctx.lineTo(0, height);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(4, 9, 18, 0.95)";
+        ctx.fill();
+      } else {
+        const isCrest = (r % 4 === 0);
+        ctx.strokeStyle = isCrest
+          ? `rgba(245, 158, 11, ${alpha * 0.55})`
+          : `rgba(16, 185, 129, ${alpha * 0.35})`;
+        ctx.lineWidth = isCrest ? 1.5 : 0.85;
+        ctx.stroke();
+      }
+    }
+
+    // 5. 3D Perspective Longitude Ray Lines
+    const numLong = 18;
+    for (let i = 0; i <= numLong; i++){
+      const pct = i / numLong;
+      const bottomX = (pct - 0.5) * (width * 1.6) + width * 0.5;
+
+      ctx.beginPath();
+      ctx.moveTo(vanishX, horizonY);
+      ctx.lineTo(bottomX, height + 40);
+      ctx.strokeStyle = `rgba(30, 58, 90, 0.18)`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // 6. Bioluminescent Floating Sea Embers
+    biolumParticles.forEach(p => {
+      p.y += p.speedY;
+      p.x += p.speedX;
+      if (p.y < horizonY - 100) {
+        p.y = height + 10;
+        p.x = Math.random() * width;
+      }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.hue}, ${p.alpha})`;
+      ctx.fill();
+    });
+
+    requestAnimationFrame(renderRealisticOcean);
   }
-  renderEnvironment();
+  renderRealisticOcean();
 
   /* ================= 2. AUDIO SYNTHESIZER (WEB AUDIO API) ================= */
   let audioCtx = null;
@@ -2144,35 +2327,47 @@
     const s0 = subjects && subjects[0] ? subjects[0].id : uid();
     const s1 = subjects && subjects[1] ? subjects[1].id : s0;
     const s2 = subjects && subjects[2] ? subjects[2].id : s1;
+    const s3 = subjects && subjects[3] ? subjects[3].id : s0;
     return {
       "1": [
         { id: uid(), subId: s0, time: "09:00 AM" },
         { id: uid(), subId: s1, time: "10:30 AM" },
-        { id: uid(), subId: s2, time: "01:00 PM" }
+        { id: uid(), subId: s2, time: "01:00 PM" },
+        { id: uid(), subId: s3, time: "02:30 PM" }
       ],
       "2": [
         { id: uid(), subId: s0, time: "09:00 AM" },
         { id: uid(), subId: s1, time: "11:00 AM" },
-        { id: uid(), subId: s0, time: "02:00 PM" }
+        { id: uid(), subId: s2, time: "01:30 PM" },
+        { id: uid(), subId: s3, time: "03:00 PM" }
       ],
       "3": [
         { id: uid(), subId: s2, time: "09:00 AM" },
         { id: uid(), subId: s1, time: "10:30 AM" },
         { id: uid(), subId: s0, time: "01:00 PM" },
-        { id: uid(), subId: s2, time: "02:30 PM" }
+        { id: uid(), subId: s3, time: "02:30 PM" }
       ],
       "4": [
         { id: uid(), subId: s1, time: "09:30 AM" },
         { id: uid(), subId: s2, time: "11:00 AM" },
-        { id: uid(), subId: s0, time: "01:30 PM" }
+        { id: uid(), subId: s0, time: "01:30 PM" },
+        { id: uid(), subId: s3, time: "03:00 PM" }
       ],
       "5": [
         { id: uid(), subId: s0, time: "10:00 AM" },
-        { id: uid(), subId: s2, time: "11:30 AM" }
+        { id: uid(), subId: s2, time: "11:30 AM" },
+        { id: uid(), subId: s1, time: "02:00 PM" }
       ],
       "6": []
     };
   }
+
+  const DEFAULT_REAL_SUBJECTS = [
+    { id: uid(), name: "Engineering Mathematics", held: 42, attended: 36, missed: 6, target: null, history: [] },
+    { id: uid(), name: "Data Structures & Algorithms", held: 38, attended: 31, missed: 7, target: null, history: [] },
+    { id: uid(), name: "Database Management (DBMS)", held: 34, attended: 28, missed: 6, target: null, history: [] },
+    { id: uid(), name: "Operating Systems", held: 30, attended: 24, missed: 6, target: null, history: [] }
+  ];
 
   let state = loadSavedState() || {
     version: 4,
@@ -2180,12 +2375,21 @@
     classesPerDay: 4,
     soundEnabled: true,
     quick: { total: 44, attended: 36, missed: 8, required: 75 },
-    subjects: [
-      { id: uid(), name: "Navigation & Charting", held: 38, attended: 32, missed: 6, target: null, history: [] },
-      { id: uid(), name: "High-Seas Gunnery", held: 30, attended: 22, missed: 8, target: null, history: [] },
-      { id: uid(), name: "Weather & Celestial Science", held: 28, attended: 23, missed: 5, target: null, history: [] }
-    ]
+    subjects: DEFAULT_REAL_SUBJECTS
   };
+
+  // Automatic migration: Replace old pirate subject names with real college subject names
+  const pirateSubjectMap = {
+    "Navigation & Charting": "Engineering Mathematics",
+    "High-Seas Gunnery": "Data Structures & Algorithms",
+    "Weather & Celestial Science": "Database Management (DBMS)"
+  };
+  if (state.subjects && state.subjects.length > 0){
+    state.subjects.forEach(s => {
+      if (pirateSubjectMap[s.name]) s.name = pirateSubjectMap[s.name];
+    });
+    persistState(state);
+  }
 
   if (!state.timetable || !state.timetable["1"]){
     state.timetable = getDefaultTimetable(state.subjects);
@@ -2212,6 +2416,14 @@
   const captainSafeClasses = document.getElementById("captainSafeClasses");
   const captainGoalPct = document.getElementById("captainGoalPct");
   const captainBunkDaysVal = document.getElementById("captainBunkDaysVal");
+
+  // Daily Leave Calculator in Overview
+  const qDailyClasses = document.getElementById("qDailyClasses");
+  const dailyLeaveBigNum = document.getElementById("dailyLeaveBigNum");
+  const dailyLeaveBigUnit = document.getElementById("dailyLeaveBigUnit");
+  const dailyLeaveOddClasses = document.getElementById("dailyLeaveOddClasses");
+  const dailyLeaveSubtext = document.getElementById("dailyLeaveSubtext");
+  const dailyLeaveResultCard = document.getElementById("dailyLeaveResultCard");
 
   // Bunk Navigator Elements
   const navClassesPerDay = document.getElementById("navClassesPerDay");
@@ -2279,7 +2491,9 @@
     const attended = Math.min(parseInt(qAttended.value, 10) || 0, total);
     const missed = Math.max(0, total - attended);
     const required = parseInt(qRequired.value, 10) || 75;
-    const perDay = Math.max(1, parseInt(navClassesPerDay.value, 10) || 4);
+    const perDay = Math.max(1, parseInt(qDailyClasses ? qDailyClasses.value : navClassesPerDay.value, 10) || 4);
+    if (qDailyClasses && qDailyClasses.value != perDay) qDailyClasses.value = perDay;
+    if (navClassesPerDay && navClassesPerDay.value != perDay) navClassesPerDay.value = perDay;
 
     qMissed.value = missed;
     reqDisplay.textContent = required + "%";
@@ -2316,9 +2530,38 @@
       verdict.innerHTML = `Detention alert! You must attend <b>${res.classesNeeded}</b> consecutive classes to recover.`;
     }
 
-    // 3. Bunk Navigator (Days calculation)
+    // 3. Bunk Navigator & Daily Leave Calculator (Full Days calculation)
     const fullBunkDays = Math.floor(res.safeBunks / perDay);
     const oddClasses = res.safeBunks % perDay;
+
+    // Overview Daily Leave Hero Card Update
+    if (dailyLeaveBigNum){
+      dailyLeaveBigNum.textContent = (res.status === 'idle') ? "0" : fullBunkDays;
+      dailyLeaveBigUnit.textContent = fullBunkDays === 1 ? "FULL DAY OFF" : "FULL DAYS OFF";
+      dailyLeaveOddClasses.textContent = (res.status === 'idle') ? "no classes logged" : (oddClasses > 0 ? `+ ${oddClasses} extra single classes` : "no leftover classes");
+
+      if (res.status === 'idle'){
+        dailyLeaveBigNum.style.color = "var(--muted)";
+        if (dailyLeaveResultCard) dailyLeaveResultCard.style.borderColor = "var(--line)";
+        if (dailyLeaveSubtext) dailyLeaveSubtext.innerHTML = "Fill in your attended and total classes above to calculate your exact leave allowance.";
+      } else if (res.status === 'safe'){
+        dailyLeaveBigNum.style.color = "var(--gold-bright)";
+        if (dailyLeaveResultCard) dailyLeaveResultCard.style.borderColor = "var(--safe)";
+        if (dailyLeaveSubtext){
+          dailyLeaveSubtext.innerHTML = fullBunkDays > 0 ?
+            `You can safely take <b>${fullBunkDays} complete days of leave</b> ${oddClasses > 0 ? `(+ ${oddClasses} extra single classes)` : ''} without slipping below your <b>${required}%</b> target!` :
+            `You have <b>${res.safeBunks} allowable class skips</b> left, which is not enough for a full day (${perDay} classes/day).`;
+        }
+      } else if (res.status === 'warn'){
+        dailyLeaveBigNum.style.color = "var(--warn)";
+        if (dailyLeaveResultCard) dailyLeaveResultCard.style.borderColor = "var(--warn)";
+        if (dailyLeaveSubtext) dailyLeaveSubtext.innerHTML = `⚠️ <b>0 full days leave</b>. Attendance is at ${res.pct.toFixed(1)}%. You need to attend <b>${res.classesNeeded} classes consecutively</b> to clear danger.`;
+      } else {
+        dailyLeaveBigNum.style.color = "var(--danger)";
+        if (dailyLeaveResultCard) dailyLeaveResultCard.style.borderColor = "var(--danger)";
+        if (dailyLeaveSubtext) dailyLeaveSubtext.innerHTML = `🚨 <b>Detention Alert! 0 days leave permitted</b>. You must attend the next <b>${res.classesNeeded} classes in a row</b> with 0 skips.`;
+      }
+    }
 
     navTargetVal.textContent = required + "%";
     navCurrentVal.textContent = res.pct.toFixed(1) + "%";
@@ -2429,7 +2672,22 @@
   qAttended.addEventListener("input", () => { syncInputs('attended'); updateAllCalculations(); });
   qMissed.addEventListener("input", () => { syncInputs('missed'); updateAllCalculations(); });
   qRequired.addEventListener("input", updateAllCalculations);
-  navClassesPerDay.addEventListener("input", updateAllCalculations);
+  navClassesPerDay.addEventListener("input", () => {
+    const val = Math.max(1, parseInt(navClassesPerDay.value, 10) || 4);
+    if (qDailyClasses) qDailyClasses.value = val;
+    state.classesPerDay = val;
+    persistState(state);
+    updateAllCalculations();
+  });
+  if (qDailyClasses){
+    qDailyClasses.addEventListener("input", () => {
+      const val = Math.max(1, parseInt(qDailyClasses.value, 10) || 4);
+      navClassesPerDay.value = val;
+      state.classesPerDay = val;
+      persistState(state);
+      updateAllCalculations();
+    });
+  }
 
   document.getElementById("btnQuickAttend").addEventListener("click", () => {
     quickHistory.push({ total: qTotal.value, attended: qAttended.value, missed: qMissed.value });
@@ -3157,32 +3415,39 @@
 
       card.innerHTML = `
         <div class="sub-card-header">
-          <input type="text" class="sub-title-inp" value="${escapeHtml(sub.name)}" placeholder="Course Title (e.g. Navigation)" data-id="${sub.id}" data-action="name" />
+          <div class="sub-title-wrap">
+            <input type="text" class="sub-title-inp" value="${escapeHtml(sub.name)}" placeholder="Subject Name (e.g. Mathematics, DSA, DBMS)" data-id="${sub.id}" data-action="name" title="Click to rename subject" />
+          </div>
           <div class="sub-metric-badges">
-            <span class="sub-target-chip" data-id="${sub.id}" data-action="target" title="Click to customize target %">${targetDisplay}</span>
+            <span class="sub-target-chip" data-id="${sub.id}" data-action="target" title="Click to customize target %">${targetDisplay} ✎</span>
             <div class="sub-pct ${res.status}">${pctStr}</div>
           </div>
         </div>
         <div class="sub-bar-track">
           <div class="sub-bar-fill ${res.status}" style="width:${Math.min(100, Math.max(0, res.pct))}%"></div>
         </div>
-        <div class="sub-card-middle">
-          <div class="sub-counts">
-            <span>Attended:</span>
-            <input type="number" min="0" value="${sub.attended}" data-id="${sub.id}" data-action="attended" />
-            <span>/</span>
-            <input type="number" min="0" value="${sub.held}" data-id="${sub.id}" data-action="held" />
-            <span>held (${missed} missed)</span>
+        <div class="sub-counts-grid">
+          <div class="sub-count-cell">
+            <span class="sub-count-lbl">Attended (Present)</span>
+            <input type="number" min="0" class="sub-count-inp" value="${sub.attended}" data-id="${sub.id}" data-action="attended" />
           </div>
-          <div class="sub-status-desc ${res.status}">${statusDesc}</div>
+          <div class="sub-count-cell">
+            <span class="sub-count-lbl">Total Held</span>
+            <input type="number" min="0" class="sub-count-inp" value="${sub.held}" data-id="${sub.id}" data-action="held" />
+          </div>
+          <div class="sub-count-cell">
+            <span class="sub-count-lbl">Missed (Bunked)</span>
+            <div class="sub-count-static-val">${missed}</div>
+          </div>
         </div>
+        <div class="sub-status-desc ${res.status}">${statusDesc}</div>
         <div class="sub-card-footer">
-          <div style="display:flex; gap:6px; align-items:center;">
-            <button class="btn-action-primary btn-attend" data-id="${sub.id}" data-action="attend">+ Attend</button>
-            <button class="btn-action-primary btn-miss" data-id="${sub.id}" data-action="miss">+ Bunk</button>
-            <button class="btn-undo" data-id="${sub.id}" data-action="undo" title="Undo last marking">↩</button>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <button class="btn-action-primary btn-attend" data-id="${sub.id}" data-action="attend">+1 Attend</button>
+            <button class="btn-action-primary btn-miss" data-id="${sub.id}" data-action="miss">+1 Bunk</button>
+            <button class="btn-undo" data-id="${sub.id}" data-action="undo" title="Undo last marking">↩ Undo</button>
           </div>
-          <button class="btn-undo" style="color:var(--danger);" data-id="${sub.id}" data-action="delete">Delete</button>
+          <button class="btn-undo" style="color:var(--danger);" data-id="${sub.id}" data-action="delete" title="Remove course">🗑️ Delete Course</button>
         </div>
       `;
       subjectListContainer.appendChild(card);
@@ -3360,6 +3625,7 @@
           qMissed.value = state.quick.missed || "";
           qRequired.value = state.quick.required || 75;
           navClassesPerDay.value = state.classesPerDay || 4;
+  if (qDailyClasses) qDailyClasses.value = state.classesPerDay || 4;
           updateAllCalculations();
           showToast("Ship Log restored successfully!");
         } else {
@@ -3472,6 +3738,7 @@
   qMissed.value = state.quick.missed || 8;
   qRequired.value = state.quick.required || 75;
   navClassesPerDay.value = state.classesPerDay || 4;
+  if (qDailyClasses) qDailyClasses.value = state.classesPerDay || 4;
 
   soundToggle.classList.toggle("active", state.soundEnabled);
   soundToggle.textContent = state.soundEnabled ? "🔊" : "🔇";
