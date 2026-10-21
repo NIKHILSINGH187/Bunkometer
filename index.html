@@ -301,7 +301,7 @@
   /* ================= NAVIGATION TABS ================= */
   .tabs {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 8px;
     background: var(--panel-bg);
     backdrop-filter: blur(18px);
@@ -312,8 +312,19 @@
     margin-bottom: 22px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
-  @media (max-width: 680px){
-    .tabs { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 820px){
+    .tabs {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+      padding: 6px 8px;
+    }
+    .tab-btn {
+      flex: 0 0 auto;
+      padding: 10px 14px;
+      font-size: 12.5px;
+    }
   }
   .tab-btn {
     font-family: var(--pirate);
@@ -553,6 +564,294 @@
     transition: all .2s ease;
   }
   .btn-undo:hover { color: #fff; border-color: var(--gold); }
+
+  /* ================= 📅 TODAY'S VOYAGE & TIMETABLE ================= */
+  .today-voyage-card {
+    background: var(--panel-card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 22px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+  }
+  .today-voyage-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .today-voyage-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .today-voyage-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--pirate);
+    font-size: 14.5px;
+    letter-spacing: .06em;
+    color: var(--gold-bright);
+  }
+  .today-voyage-subtitle {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+  .today-voyage-subtitle b { color: #fff; }
+  .day-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .day-pill {
+    background: rgba(8, 14, 25, 0.7);
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-family: var(--pirate);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .day-pill:hover {
+    color: #fff;
+    border-color: var(--gold);
+  }
+  .day-pill.active {
+    background: var(--panel-inner);
+    border-color: var(--gold);
+    color: var(--gold-bright);
+    box-shadow: 0 0 10px var(--brass-glow);
+  }
+  .day-pill.is-today::after {
+    content: '⚓';
+    font-size: 10px;
+    color: var(--safe);
+  }
+
+  .day-bunk-verdict-banner {
+    background: rgba(9, 14, 24, 0.85);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .day-bunk-verdict-banner.safe { border-left: 4px solid var(--safe); }
+  .day-bunk-verdict-banner.warn { border-left: 4px solid var(--warn); }
+  .day-bunk-verdict-banner.danger { border-left: 4px solid var(--danger); }
+  .day-bunk-verdict-banner.empty { border-left: 4px solid var(--muted); }
+
+  .bunk-verdict-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--pirate);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+  .bunk-verdict-badge.safe { background: var(--safe-dim); color: var(--safe); border: 1px solid var(--safe); }
+  .bunk-verdict-badge.warn { background: var(--warn-dim); color: var(--warn); border: 1px solid var(--warn); }
+  .bunk-verdict-badge.danger { background: var(--danger-dim); color: var(--danger); border: 1px solid var(--danger); }
+  .bunk-verdict-badge.empty { background: rgba(148, 163, 184, 0.12); color: var(--muted); border: 1px solid var(--line); }
+
+  .bunk-verdict-text {
+    font-size: 12.5px;
+    color: var(--muted);
+    flex: 1;
+    min-width: 220px;
+    line-height: 1.45;
+  }
+  .bunk-verdict-text b { color: #fff; }
+
+  /* Slot list */
+  .day-slots-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .day-slot-card {
+    background: rgba(10, 16, 28, 0.7);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    transition: all .2s ease;
+  }
+  .day-slot-card:hover {
+    border-color: rgba(245, 158, 11, 0.4);
+    background: rgba(15, 23, 40, 0.85);
+  }
+  .day-slot-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .day-slot-time {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    background: rgba(245, 158, 11, 0.1);
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    white-space: nowrap;
+  }
+  .day-slot-name {
+    font-family: var(--pirate);
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .day-slot-stats {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .day-slot-stats b { color: var(--gold-bright); }
+  .day-slot-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .day-batch-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-top: 14px;
+    border-top: 1px solid rgba(212, 175, 55, 0.12);
+  }
+
+  /* Weekly Bunk Radar */
+  .bunk-radar-wrap {
+    margin-top: 24px;
+    background: var(--panel-card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 20px;
+  }
+  .bunk-radar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .bunk-radar-card {
+    background: rgba(10, 16, 28, 0.75);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 10px;
+    text-align: center;
+    transition: all .2s ease;
+  }
+  .bunk-radar-card:hover { transform: translateY(-2px); }
+  .bunk-radar-card.safe { border-top: 3px solid var(--safe); }
+  .bunk-radar-card.warn { border-top: 3px solid var(--warn); }
+  .bunk-radar-card.danger { border-top: 3px solid var(--danger); }
+  .bunk-radar-card.empty { border-top: 3px solid var(--muted); opacity: 0.65; }
+  .radar-day-name {
+    font-family: var(--pirate);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold-bright);
+  }
+  .radar-classes-count {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--muted);
+    margin: 4px 0 6px;
+  }
+  .radar-badge {
+    font-family: var(--pirate);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 100px;
+    display: inline-block;
+  }
+  .radar-badge.safe { background: var(--safe-dim); color: var(--safe); }
+  .radar-badge.warn { background: var(--warn-dim); color: var(--warn); }
+  .radar-badge.danger { background: var(--danger-dim); color: var(--danger); }
+  .radar-badge.empty { background: rgba(148, 163, 184, 0.1); color: var(--muted); }
+  .radar-margin-note {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: var(--muted);
+    margin-top: 6px;
+    line-height: 1.25;
+  }
+
+  /* Timetable Editor Specific */
+  .tt-slot-editor-row {
+    background: rgba(10, 16, 28, 0.75);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: grid;
+    grid-template-columns: 130px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 600px){
+    .tt-slot-editor-row { grid-template-columns: 1fr; gap: 8px; }
+  }
+  .tt-slot-time-input {
+    background: rgba(8, 13, 22, 0.9);
+    border: 1px solid var(--line);
+    color: var(--gold-bright);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    padding: 8px 10px;
+    border-radius: 8px;
+  }
+  .tt-slot-select {
+    background: rgba(8, 13, 22, 0.9);
+    border: 1px solid var(--line);
+    color: #fff;
+    font-family: var(--pirate);
+    font-size: 13.5px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+  }
+  .tt-slot-select:focus, .tt-slot-time-input:focus {
+    border-color: var(--gold);
+  }
 
   /* ================= 🗺️ BUNK NAVIGATOR ("HOW MANY DAYS CAN I BUNK?") ================= */
   .bunk-nav-grid {
@@ -1079,7 +1378,7 @@
     <div>
       <div class="brand-badge">
         <span>High-Seas Attendance Tracker</span>
-        <span class="brass-chip">PIRATE VOYAGE v3.0</span>
+        <span class="brass-chip">PIRATE VOYAGE v4.0 · TIMETABLE EDITION</span>
       </div>
       <h1>BUNK<span>O</span>METER</h1>
       <p class="tagline">Command your fleet's attendance voyage and calculate safe bunk days with zero mental math.</p>
@@ -1112,6 +1411,7 @@
   <!-- ================= TABS ================= -->
   <nav class="tabs">
     <button class="tab-btn active" data-tab="dashboard">⚓ Overview</button>
+    <button class="tab-btn" data-tab="timetable">📅 Timetable</button>
     <button class="tab-btn" data-tab="navigator">🗺️ Bunk Days</button>
     <button class="tab-btn" data-tab="simulator">🔮 What-If</button>
     <button class="tab-btn" data-tab="logbook">📜 Fleet Logbook</button>
@@ -1169,10 +1469,59 @@
       </div>
     </div>
 
+    <!-- Quick Sync from Fleet -->
+    <div style="margin-top: 12px; display: flex; justify-content: flex-end;">
+      <button class="btn-undo" id="btnSyncFromFleet" title="Sync Overview counters from the sum of all courses in Fleet Logbook" style="display:flex; align-items:center; gap:6px;">
+        <span>🔄</span> Sync Overview from Fleet Logbook
+      </button>
+    </div>
+
+    <!-- ================= TODAY'S VOYAGE (1-TAP CLASS LOGGER) ================= -->
+    <div class="today-voyage-card" id="todayVoyageCard">
+      <div class="today-voyage-head">
+        <div>
+          <div class="today-voyage-title">
+            <span>📅 TODAY'S VOYAGE SCHEDULE</span>
+          </div>
+          <div class="today-voyage-subtitle" id="todayVoyageSub">
+            Loading today's lectures...
+          </div>
+        </div>
+        <div class="day-pills" id="overviewDayPills">
+          <button class="day-pill" data-day="1">Mon</button>
+          <button class="day-pill" data-day="2">Tue</button>
+          <button class="day-pill" data-day="3">Wed</button>
+          <button class="day-pill" data-day="4">Thu</button>
+          <button class="day-pill" data-day="5">Fri</button>
+          <button class="day-pill" data-day="6">Sat</button>
+        </div>
+      </div>
+
+      <!-- Day Bunk Feasibility Banner -->
+      <div class="day-bunk-verdict-banner safe" id="overviewBunkBanner">
+        <div class="bunk-verdict-badge safe" id="overviewBunkBadge">Safe Day</div>
+        <div class="bunk-verdict-text" id="overviewBunkVerdictText">Checking feasibility...</div>
+      </div>
+
+      <!-- Slots List -->
+      <div class="day-slots-list" id="overviewSlotsList">
+        <!-- populated dynamically -->
+      </div>
+
+      <!-- Day Batch Bar -->
+      <div class="day-batch-bar">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn-action-primary btn-attend" id="btnMarkDayAttended">⚡ Mark Whole Day Attended</button>
+          <button class="btn-action-primary btn-miss" id="btnMarkDayMissed">🏴‍☠️ Mark Whole Day Bunked</button>
+        </div>
+        <button class="btn-undo" id="btnJumpTimetable">⚙️ Edit Timetable</button>
+      </div>
+    </div>
+
     <!-- Quick Stepper -->
     <div class="quick-voyage-bar">
       <div class="quick-voyage-label">
-        Next Class Action: <b>Log today's lecture with 1 tap</b>
+        Manual Quick Logger: <b>Log ad-hoc class with 1 tap</b>
       </div>
       <div class="quick-voyage-btns">
         <button class="btn-action-primary btn-attend" id="btnQuickAttend">⚓ +1 Attended</button>
@@ -1187,7 +1536,57 @@
     </div>
   </section>
 
-  <!-- ================= TAB 2: BUNK NAVIGATOR ("HOW MANY DAYS CAN I BUNK?") ================= -->
+  <!-- ================= TAB 2: WEEKLY TIMETABLE MANAGER ================= -->
+  <section id="tab-timetable" class="panel" hidden>
+    <div class="captain-heading" style="font-size: 18px; margin-bottom: 6px;">
+      📅 Fleet Weekly Timetable & Bunk Radar
+    </div>
+    <div style="font-size: 13.5px; color: var(--muted); margin-bottom: 18px;">
+      Map your weekly lecture schedule across Monday to Saturday to enable 1-tap logging and calculate exact day-by-day bunk margins.
+    </div>
+
+    <!-- Day Selector Row -->
+    <div class="day-pills" id="ttDayPills" style="margin-bottom: 18px;">
+      <button class="day-pill" data-day="1">Monday</button>
+      <button class="day-pill" data-day="2">Tuesday</button>
+      <button class="day-pill" data-day="3">Wednesday</button>
+      <button class="day-pill" data-day="4">Thursday</button>
+      <button class="day-pill" data-day="5">Friday</button>
+      <button class="day-pill" data-day="6">Saturday</button>
+    </div>
+
+    <!-- Selected Day Verdict Card -->
+    <div class="day-bunk-verdict-banner safe" id="ttDayBunkBanner" style="margin-bottom: 20px;">
+      <div class="bunk-verdict-badge safe" id="ttDayBunkBadge">Safe to Bunk</div>
+      <div class="bunk-verdict-text" id="ttDayBunkVerdictText">Checking day impact...</div>
+    </div>
+
+    <!-- Slots Editor List -->
+    <div id="ttSlotEditorList" style="margin-bottom: 18px;">
+      <!-- Slot editor rows inserted here -->
+    </div>
+
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px;">
+      <button class="btn-add-voyage" id="btnAddTtSlot" style="margin-top: 0; flex: 1;">＋ Add Class Period</button>
+      <button class="btn-vault-action" id="btnAutoDistributeTt" style="flex: 1;">⚡ Auto-Fill from Fleet</button>
+      <button class="btn-reset-danger" id="btnClearTtDay">Clear Day</button>
+    </div>
+
+    <!-- Weekly Timetable Bunk Radar Overview -->
+    <div class="bunk-radar-wrap">
+      <div class="bunk-card-title" style="margin-bottom: 4px;">
+        <span>🗺️ Weekly Day-by-Day Bunk Radar</span>
+      </div>
+      <div style="font-size: 12.5px; color: var(--muted); margin-bottom: 14px;">
+        Evaluates whether taking each entire day off will breach the required attendance threshold in any scheduled course.
+      </div>
+      <div class="bunk-radar-grid" id="ttRadarGrid">
+        <!-- Rendered radar cards for Mon-Sat -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TAB 3: BUNK NAVIGATOR ("HOW MANY DAYS CAN I BUNK?") ================= -->
   <section id="tab-navigator" class="panel" hidden>
     <div class="bunk-nav-grid">
       <div class="bunk-card">
@@ -1238,6 +1637,19 @@
             <div class="nav-mini-val" id="navPerDayDisplay">4</div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Weekly Bunk Radar inside Navigator -->
+    <div class="bunk-radar-wrap" style="margin-top: 22px;">
+      <div class="bunk-card-title" style="margin-bottom: 4px;">
+        <span>🗺️ Timetable-Grounded Bunk Feasibility Radar</span>
+      </div>
+      <div style="font-size: 12.5px; color: var(--muted); margin-bottom: 14px;">
+        Real-world day feasibility based on the specific subjects scheduled on each day of your timetable:
+      </div>
+      <div class="bunk-radar-grid" id="navRadarGrid">
+        <!-- Rendered radar cards for Mon-Sat -->
       </div>
     </div>
   </section>
@@ -1710,8 +2122,60 @@
     try { localStorage.setItem(STORE_KEY, JSON.stringify(s)); } catch(e){}
   }
 
+  const DAY_NAMES = {
+    "1": "Monday",
+    "2": "Tuesday",
+    "3": "Wednesday",
+    "4": "Thursday",
+    "5": "Friday",
+    "6": "Saturday"
+  };
+
+  const DAY_SHORT = {
+    "1": "Mon",
+    "2": "Tue",
+    "3": "Wed",
+    "4": "Thu",
+    "5": "Fri",
+    "6": "Sat"
+  };
+
+  function getDefaultTimetable(subjects){
+    const s0 = subjects && subjects[0] ? subjects[0].id : uid();
+    const s1 = subjects && subjects[1] ? subjects[1].id : s0;
+    const s2 = subjects && subjects[2] ? subjects[2].id : s1;
+    return {
+      "1": [
+        { id: uid(), subId: s0, time: "09:00 AM" },
+        { id: uid(), subId: s1, time: "10:30 AM" },
+        { id: uid(), subId: s2, time: "01:00 PM" }
+      ],
+      "2": [
+        { id: uid(), subId: s0, time: "09:00 AM" },
+        { id: uid(), subId: s1, time: "11:00 AM" },
+        { id: uid(), subId: s0, time: "02:00 PM" }
+      ],
+      "3": [
+        { id: uid(), subId: s2, time: "09:00 AM" },
+        { id: uid(), subId: s1, time: "10:30 AM" },
+        { id: uid(), subId: s0, time: "01:00 PM" },
+        { id: uid(), subId: s2, time: "02:30 PM" }
+      ],
+      "4": [
+        { id: uid(), subId: s1, time: "09:30 AM" },
+        { id: uid(), subId: s2, time: "11:00 AM" },
+        { id: uid(), subId: s0, time: "01:30 PM" }
+      ],
+      "5": [
+        { id: uid(), subId: s0, time: "10:00 AM" },
+        { id: uid(), subId: s2, time: "11:30 AM" }
+      ],
+      "6": []
+    };
+  }
+
   let state = loadSavedState() || {
-    version: 3,
+    version: 4,
     required: 75,
     classesPerDay: 4,
     soundEnabled: true,
@@ -1722,6 +2186,14 @@
       { id: uid(), name: "Weather & Celestial Science", held: 28, attended: 23, missed: 5, target: null, history: [] }
     ]
   };
+
+  if (!state.timetable || !state.timetable["1"]){
+    state.timetable = getDefaultTimetable(state.subjects);
+    persistState(state);
+  }
+
+  const realDayNum = new Date().getDay(); // 0 = Sun, 1 = Mon, ..., 6 = Sat
+  let selectedDayKey = (realDayNum >= 1 && realDayNum <= 6) ? String(realDayNum) : "1";
 
   /* ================= 6. DOM BINDINGS ================= */
   const qTotal = document.getElementById("qTotal");
@@ -1910,6 +2382,9 @@
     persistState(state);
 
     renderFleetLogbook();
+    renderTodayVoyage();
+    renderTimetable();
+    renderBunkRadar();
   }
 
   function updateSliderProjection(total, attended, required){
@@ -2018,6 +2493,600 @@
     showToast(state.soundEnabled ? "Sound enabled" : "Sound muted");
   });
 
+  /* ================= 7B. FLEET WEEKLY TIMETABLE & TODAY'S SCHEDULE ENGINE ================= */
+  function evaluateDayBunk(dayKey){
+    const dayClasses = (state.timetable && state.timetable[dayKey]) || [];
+    if (!dayClasses || dayClasses.length === 0){
+      return {
+        status: "empty",
+        totalClasses: 0,
+        items: [],
+        verdict: "No lectures scheduled on this day (Port Rest Day 🏝️)"
+      };
+    }
+
+    const globalReq = state.required || 75;
+    const subjectCounts = {};
+    dayClasses.forEach(slot => {
+      if (slot.subId){
+        subjectCounts[slot.subId] = (subjectCounts[slot.subId] || 0) + 1;
+      }
+    });
+
+    let worstStatus = "safe";
+    const courseImpacts = [];
+
+    Object.keys(subjectCounts).forEach(key => {
+      const sub = state.subjects.find(s => s.id === key);
+      const name = sub ? (sub.name || "Course") : "General Lecture";
+      const held = sub ? (parseInt(sub.held, 10) || 0) : 0;
+      const attended = sub ? Math.min(parseInt(sub.attended, 10) || 0, held) : 0;
+      const target = (sub && sub.target) ? sub.target : globalReq;
+      const skips = subjectCounts[key];
+
+      const currentAnalysis = analyzeAttendance(held, attended, target);
+      const afterAnalysis = analyzeAttendance(held + skips, attended, target);
+
+      let impact = "safe";
+      if (afterAnalysis.status === "danger"){
+        impact = "danger";
+        worstStatus = "danger";
+      } else if (afterAnalysis.status === "warn"){
+        impact = "warn";
+        if (worstStatus !== "danger") worstStatus = "warn";
+      }
+
+      courseImpacts.push({
+        id: key,
+        name: name,
+        skips: skips,
+        target: target,
+        currentPct: currentAnalysis.pct,
+        afterPct: afterAnalysis.pct,
+        currentSafeBunks: currentAnalysis.safeBunks,
+        afterSafeBunks: afterAnalysis.safeBunks,
+        afterClassesNeeded: afterAnalysis.classesNeeded,
+        status: impact
+      });
+    });
+
+    let verdict = "";
+    if (worstStatus === "safe"){
+      verdict = `Safe to bunk! All ${courseImpacts.length} scheduled course(s) remain above their criteria threshold after skipping this day.`;
+    } else if (worstStatus === "warn"){
+      const risky = courseImpacts.filter(c => c.status === "warn").map(c => c.name).join(", ");
+      verdict = `Caution: Skipping this day drops ${risky} into Rough Seas (${globalReq - 10}% - ${globalReq}%).`;
+    } else {
+      const dangerous = courseImpacts.filter(c => c.status === "danger").map(c => c.name).join(", ");
+      verdict = `Detention Alert! Skipping this day drops ${dangerous} below required attendance threshold.`;
+    }
+
+    return {
+      status: worstStatus,
+      totalClasses: dayClasses.length,
+      items: courseImpacts,
+      verdict: verdict
+    };
+  }
+
+  function renderTodayVoyage(){
+    const dayPillsContainer = document.getElementById("overviewDayPills");
+    const subTitle = document.getElementById("todayVoyageSub");
+    const banner = document.getElementById("overviewBunkBanner");
+    const badge = document.getElementById("overviewBunkBadge");
+    const verdictText = document.getElementById("overviewBunkVerdictText");
+    const slotsList = document.getElementById("overviewSlotsList");
+
+    if (!dayPillsContainer || !slotsList) return;
+
+    // Day Pills
+    dayPillsContainer.querySelectorAll(".day-pill").forEach(btn => {
+      const day = btn.dataset.day;
+      btn.classList.toggle("active", day === selectedDayKey);
+      btn.classList.toggle("is-today", day === String(realDayNum));
+      btn.title = day === String(realDayNum) ? "Today" : DAY_NAMES[day];
+    });
+
+    // Subtitle
+    const isActuallyToday = (String(realDayNum) === selectedDayKey);
+    const dayName = DAY_NAMES[selectedDayKey] || "Monday";
+    const todayDate = new Date();
+    const dateStr = todayDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    const daySlots = (state.timetable && state.timetable[selectedDayKey]) || [];
+
+    if (isActuallyToday){
+      subTitle.innerHTML = `Today: <b>${dayName}, ${dateStr}</b> · <b>${daySlots.length}</b> lectures scheduled`;
+    } else {
+      subTitle.innerHTML = `Viewing: <b>${dayName}</b> (Timetable Schedule) · <b>${daySlots.length}</b> lectures scheduled`;
+    }
+
+    // Feasibility Banner
+    const evalRes = evaluateDayBunk(selectedDayKey);
+    banner.className = `day-bunk-verdict-banner ${evalRes.status}`;
+    badge.className = `bunk-verdict-badge ${evalRes.status}`;
+
+    if (evalRes.status === 'safe'){
+      badge.textContent = "🟢 Safe Day to Bunk";
+    } else if (evalRes.status === 'warn'){
+      badge.textContent = "🟡 Caution Day";
+    } else if (evalRes.status === 'danger'){
+      badge.textContent = "🔴 Cannot Bunk";
+    } else {
+      badge.textContent = "🏝️ Port Rest Day";
+    }
+    verdictText.innerHTML = escapeHtml(evalRes.verdict);
+
+    // Slots List
+    slotsList.innerHTML = "";
+    if (daySlots.length === 0){
+      slotsList.innerHTML = `
+        <div style="text-align: center; padding: 22px 14px; background: rgba(8, 14, 25, 0.5); border: 1px dashed var(--line); border-radius: 12px; color: var(--muted); font-size: 13px;">
+          ⚓ No lectures scheduled for ${dayName}. Enjoy shore leave or tap <b>⚙️ Edit Timetable</b> to add courses!
+        </div>
+      `;
+      return;
+    }
+
+    daySlots.forEach((slot, idx) => {
+      const sub = state.subjects.find(s => s.id === slot.subId);
+      const subName = sub ? sub.name : (slot.customName || "Unassigned Lecture");
+      const held = sub ? (parseInt(sub.held, 10) || 0) : 0;
+      const attended = sub ? Math.min(parseInt(sub.attended, 10) || 0, held) : 0;
+      const target = (sub && sub.target) ? sub.target : (state.required || 75);
+      const res = sub ? analyzeAttendance(held, attended, target) : { pct: 0, status: "idle", safeBunks: 0, classesNeeded: 0 };
+
+      const card = document.createElement("div");
+      card.className = "day-slot-card";
+
+      let marginPill = "";
+      if (res.status === 'safe'){
+        marginPill = `<span style="color:var(--safe); font-size:11px;">+${res.safeBunks} safe skips</span>`;
+      } else if (res.status === 'warn'){
+        marginPill = `<span style="color:var(--warn); font-size:11px;">need ${res.classesNeeded} classes</span>`;
+      } else if (res.status === 'danger'){
+        marginPill = `<span style="color:var(--danger); font-size:11px;">deficit: ${res.classesNeeded} classes</span>`;
+      } else {
+        marginPill = `<span style="color:var(--muted); font-size:11px;">no records</span>`;
+      }
+
+      card.innerHTML = `
+        <div class="day-slot-info">
+          <div class="day-slot-time">${escapeHtml(slot.time || ('Slot ' + (idx + 1)))}</div>
+          <div>
+            <div class="day-slot-name">${escapeHtml(subName)}</div>
+            <div class="day-slot-stats">
+              <span>Standing: <b>${res.status === 'idle' ? '—' : res.pct.toFixed(1) + '%'}</b> (${attended}/${held})</span>
+              <span>·</span>
+              ${marginPill}
+            </div>
+          </div>
+        </div>
+        <div class="day-slot-actions">
+          <button class="btn-action-primary btn-attend" data-action="slot-attend" data-sub-id="${sub ? sub.id : ''}" data-slot-id="${slot.id}" title="Mark this lecture attended (+1)">⚓ + Attend</button>
+          <button class="btn-action-primary btn-miss" data-action="slot-miss" data-sub-id="${sub ? sub.id : ''}" data-slot-id="${slot.id}" title="Mark this lecture missed (+1)">🏴‍☠️ + Bunk</button>
+          <button class="btn-undo" data-action="slot-undo" data-sub-id="${sub ? sub.id : ''}" data-slot-id="${slot.id}" title="Undo last marking">↩</button>
+        </div>
+      `;
+      slotsList.appendChild(card);
+    });
+  }
+
+  function renderTimetable(){
+    const ttDayPills = document.getElementById("ttDayPills");
+    const banner = document.getElementById("ttDayBunkBanner");
+    const badge = document.getElementById("ttDayBunkBadge");
+    const verdictText = document.getElementById("ttDayBunkVerdictText");
+    const editorList = document.getElementById("ttSlotEditorList");
+
+    if (!ttDayPills || !editorList) return;
+
+    ttDayPills.querySelectorAll(".day-pill").forEach(btn => {
+      const day = btn.dataset.day;
+      btn.classList.toggle("active", day === selectedDayKey);
+      btn.classList.toggle("is-today", day === String(realDayNum));
+    });
+
+    const evalRes = evaluateDayBunk(selectedDayKey);
+    banner.className = `day-bunk-verdict-banner ${evalRes.status}`;
+    badge.className = `bunk-verdict-badge ${evalRes.status}`;
+
+    if (evalRes.status === 'safe'){
+      badge.textContent = "🟢 Safe Day to Bunk";
+    } else if (evalRes.status === 'warn'){
+      badge.textContent = "🟡 Caution Day";
+    } else if (evalRes.status === 'danger'){
+      badge.textContent = "🔴 Cannot Bunk";
+    } else {
+      badge.textContent = "🏝️ Port Rest Day";
+    }
+    verdictText.innerHTML = escapeHtml(evalRes.verdict);
+
+    editorList.innerHTML = "";
+    const daySlots = (state.timetable && state.timetable[selectedDayKey]) || [];
+
+    if (daySlots.length === 0){
+      editorList.innerHTML = `
+        <div style="text-align: center; padding: 26px 16px; background: rgba(8, 14, 25, 0.5); border: 1px dashed var(--line); border-radius: 12px; color: var(--muted); font-size: 13px;">
+          No class periods scheduled for ${DAY_NAMES[selectedDayKey]}. Tap <b>＋ Add Class Period</b> or <b>⚡ Auto-Fill from Fleet</b> to populate!
+        </div>
+      `;
+    } else {
+      daySlots.forEach((slot, idx) => {
+        const row = document.createElement("div");
+        row.className = "tt-slot-editor-row";
+
+        let optionsHtml = `<option value="">-- Select Fleet Course --</option>`;
+        state.subjects.forEach(s => {
+          const isSelected = (s.id === slot.subId) ? "selected" : "";
+          optionsHtml += `<option value="${s.id}" ${isSelected}>${escapeHtml(s.name || 'Unnamed Course')}</option>`;
+        });
+
+        const sub = state.subjects.find(s => s.id === slot.subId);
+        let subStats = "";
+        if (sub){
+          const h = parseInt(sub.held, 10) || 0;
+          const a = Math.min(parseInt(sub.attended, 10) || 0, h);
+          const r = analyzeAttendance(h, a, sub.target || state.required || 75);
+          const color = r.status === 'safe' ? 'var(--safe)' : (r.status === 'warn' ? 'var(--warn)' : 'var(--danger)');
+          subStats = `<span style="font-family:var(--mono); font-size:11.5px; color:${color}; margin-left:8px; white-space:nowrap;">${r.status === 'idle' ? '—' : r.pct.toFixed(1) + '%'}</span>`;
+        }
+
+        row.innerHTML = `
+          <input type="text" class="tt-slot-time-input" value="${escapeHtml(slot.time || '')}" placeholder="09:00 AM" data-slot-id="${slot.id}" data-action="time" title="Period Time or Name" />
+          <div style="display:flex; align-items:center;">
+            <select class="tt-slot-select" data-slot-id="${slot.id}" data-action="subject" style="flex:1;">
+              ${optionsHtml}
+            </select>
+            ${subStats}
+          </div>
+          <button class="btn-undo" style="color:var(--danger);" data-slot-id="${slot.id}" data-action="delete" title="Remove slot">✕</button>
+        `;
+        editorList.appendChild(row);
+      });
+    }
+
+    renderBunkRadar();
+  }
+
+  function renderBunkRadar(){
+    const ttGrid = document.getElementById("ttRadarGrid");
+    const navGrid = document.getElementById("navRadarGrid");
+
+    const days = ["1", "2", "3", "4", "5", "6"];
+    let html = "";
+
+    days.forEach(d => {
+      const res = evaluateDayBunk(d);
+      const daySlots = (state.timetable && state.timetable[d]) || [];
+      const isToday = (String(realDayNum) === d);
+
+      let badgeClass = res.status;
+      let badgeLabel = "";
+      if (res.status === 'safe') badgeLabel = "🟢 Safe";
+      else if (res.status === 'warn') badgeLabel = "🟡 Caution";
+      else if (res.status === 'danger') badgeLabel = "🔴 Alert";
+      else badgeLabel = "🏝️ Free";
+
+      let marginNote = "";
+      if (daySlots.length === 0){
+        marginNote = "No lectures";
+      } else if (res.status === 'safe'){
+        marginNote = "Safe margin across courses";
+      } else if (res.status === 'warn'){
+        marginNote = "Near target boundary";
+      } else {
+        marginNote = "Detention breach risk";
+      }
+
+      html += `
+        <div class="bunk-radar-card ${res.status}" style="${isToday ? 'outline: 2px solid var(--gold); box-shadow: 0 0 12px var(--brass-glow);' : ''}">
+          <div class="radar-day-name">${DAY_SHORT[d]} ${isToday ? '⚓' : ''}</div>
+          <div class="radar-classes-count">${daySlots.length} ${daySlots.length === 1 ? 'class' : 'classes'}</div>
+          <span class="radar-badge ${badgeClass}">${badgeLabel}</span>
+          <div class="radar-margin-note">${marginNote}</div>
+        </div>
+      `;
+    });
+
+    if (ttGrid) ttGrid.innerHTML = html;
+    if (navGrid) navGrid.innerHTML = html;
+  }
+
+  function setupDayPillListeners(containerId){
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.addEventListener("click", (e) => {
+      const pill = e.target.closest(".day-pill");
+      if (!pill) return;
+      selectedDayKey = pill.dataset.day;
+      playNauticalChime('click');
+      renderTodayVoyage();
+      renderTimetable();
+    });
+  }
+  setupDayPillListeners("overviewDayPills");
+  setupDayPillListeners("ttDayPills");
+
+  // Overview Today Slots Click Delegation
+  const overviewSlotsList = document.getElementById("overviewSlotsList");
+  if (overviewSlotsList){
+    overviewSlotsList.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-action]");
+      if (!btn) return;
+      const action = btn.dataset.action;
+      const subId = btn.dataset.subId;
+      const sub = state.subjects.find(s => s.id === subId);
+      if (!sub){
+        showToast("Course not linked in fleet logbook");
+        return;
+      }
+
+      if (action === 'slot-attend'){
+        if (!sub.history) sub.history = [];
+        sub.history.push({ held: sub.held, attended: sub.attended });
+        sub.held = (parseInt(sub.held, 10) || 0) + 1;
+        sub.attended = (parseInt(sub.attended, 10) || 0) + 1;
+
+        qTotal.value = (parseInt(qTotal.value, 10) || 0) + 1;
+        qAttended.value = (parseInt(qAttended.value, 10) || 0) + 1;
+
+        playNauticalChime('attend');
+        persistState(state);
+        updateAllCalculations();
+        showToast(`Marked ${sub.name}: Attended (+1)`);
+      } else if (action === 'slot-miss'){
+        if (!sub.history) sub.history = [];
+        sub.history.push({ held: sub.held, attended: sub.attended });
+        sub.held = (parseInt(sub.held, 10) || 0) + 1;
+
+        qTotal.value = (parseInt(qTotal.value, 10) || 0) + 1;
+        qMissed.value = (parseInt(qMissed.value, 10) || 0) + 1;
+
+        playNauticalChime('miss');
+        persistState(state);
+        updateAllCalculations();
+        showToast(`Marked ${sub.name}: Bunked (+1 Missed)`);
+      } else if (action === 'slot-undo'){
+        if (sub.history && sub.history.length > 0){
+          const prev = sub.history.pop();
+          const diffHeld = (parseInt(sub.held, 10) || 0) - (parseInt(prev.held, 10) || 0);
+          const diffAtt = (parseInt(sub.attended, 10) || 0) - (parseInt(prev.attended, 10) || 0);
+          sub.held = prev.held;
+          sub.attended = prev.attended;
+
+          qTotal.value = Math.max(0, (parseInt(qTotal.value, 10) || 0) - diffHeld);
+          qAttended.value = Math.max(0, (parseInt(qAttended.value, 10) || 0) - diffAtt);
+          qMissed.value = Math.max(0, (parseInt(qTotal.value, 10) || 0) - (parseInt(qAttended.value, 10) || 0));
+
+          playNauticalChime('click');
+          persistState(state);
+          updateAllCalculations();
+          showToast(`Undone last mark for ${sub.name}`);
+        } else {
+          showToast("Nothing to undo for this course");
+        }
+      }
+    });
+  }
+
+  // Batch actions for today
+  const btnMarkDayAttended = document.getElementById("btnMarkDayAttended");
+  if (btnMarkDayAttended){
+    btnMarkDayAttended.addEventListener("click", () => {
+      const slots = (state.timetable && state.timetable[selectedDayKey]) || [];
+      if (slots.length === 0){
+        showToast("No classes scheduled to mark for this day");
+        return;
+      }
+      let markedCount = 0;
+      slots.forEach(slot => {
+        const sub = state.subjects.find(s => s.id === slot.subId);
+        if (sub){
+          if (!sub.history) sub.history = [];
+          sub.history.push({ held: sub.held, attended: sub.attended });
+          sub.held = (parseInt(sub.held, 10) || 0) + 1;
+          sub.attended = (parseInt(sub.attended, 10) || 0) + 1;
+          markedCount++;
+        }
+      });
+      if (markedCount > 0){
+        qTotal.value = (parseInt(qTotal.value, 10) || 0) + markedCount;
+        qAttended.value = (parseInt(qAttended.value, 10) || 0) + markedCount;
+        playNauticalChime('attend');
+        persistState(state);
+        updateAllCalculations();
+        showToast(`Logged all ${markedCount} classes attended for ${DAY_NAMES[selectedDayKey]}!`);
+      }
+    });
+  }
+
+  const btnMarkDayMissed = document.getElementById("btnMarkDayMissed");
+  if (btnMarkDayMissed){
+    btnMarkDayMissed.addEventListener("click", () => {
+      const slots = (state.timetable && state.timetable[selectedDayKey]) || [];
+      if (slots.length === 0){
+        showToast("No classes scheduled to mark for this day");
+        return;
+      }
+      let markedCount = 0;
+      slots.forEach(slot => {
+        const sub = state.subjects.find(s => s.id === slot.subId);
+        if (sub){
+          if (!sub.history) sub.history = [];
+          sub.history.push({ held: sub.held, attended: sub.attended });
+          sub.held = (parseInt(sub.held, 10) || 0) + 1;
+          markedCount++;
+        }
+      });
+      if (markedCount > 0){
+        qTotal.value = (parseInt(qTotal.value, 10) || 0) + markedCount;
+        qMissed.value = (parseInt(qMissed.value, 10) || 0) + markedCount;
+        playNauticalChime('miss');
+        persistState(state);
+        updateAllCalculations();
+        showToast(`Logged all ${markedCount} classes bunked for ${DAY_NAMES[selectedDayKey]}!`);
+      }
+    });
+  }
+
+  const btnJumpTimetable = document.getElementById("btnJumpTimetable");
+  if (btnJumpTimetable){
+    btnJumpTimetable.addEventListener("click", () => {
+      tabBtns.forEach(b => {
+        b.classList.toggle("active", b.dataset.tab === "timetable");
+      });
+      Object.keys(tabPanels).forEach(key => {
+        tabPanels[key].hidden = (key !== "timetable");
+      });
+      playNauticalChime('click');
+    });
+  }
+
+  // Sync Overview from Fleet
+  const btnSyncFromFleet = document.getElementById("btnSyncFromFleet");
+  if (btnSyncFromFleet){
+    btnSyncFromFleet.addEventListener("click", () => {
+      let sumHeld = 0, sumAttended = 0;
+      state.subjects.forEach(s => {
+        const h = parseInt(s.held, 10) || 0;
+        const a = Math.min(parseInt(s.attended, 10) || 0, h);
+        sumHeld += h;
+        sumAttended += a;
+      });
+      if (sumHeld === 0){
+        showToast("No attendance recorded in Fleet courses to sync");
+        return;
+      }
+      qTotal.value = sumHeld;
+      qAttended.value = sumAttended;
+      qMissed.value = Math.max(0, sumHeld - sumAttended);
+      playNauticalChime('click');
+      updateAllCalculations();
+      showToast(`Overview synced from Fleet: ${sumAttended}/${sumHeld} classes!`);
+    });
+  }
+
+  // Timetable Editor Event Handlers
+  const ttSlotEditorList = document.getElementById("ttSlotEditorList");
+  if (ttSlotEditorList){
+    ttSlotEditorList.addEventListener("change", (e) => {
+      const el = e.target;
+      const slotId = el.dataset.slotId;
+      const action = el.dataset.action;
+      if (!slotId || !action) return;
+
+      const daySlots = state.timetable[selectedDayKey] || [];
+      const slot = daySlots.find(s => s.id === slotId);
+      if (!slot) return;
+
+      if (action === 'subject'){
+        slot.subId = el.value;
+        persistState(state);
+        renderTodayVoyage();
+        renderTimetable();
+        renderBunkRadar();
+        showToast("Updated period course");
+      }
+    });
+
+    ttSlotEditorList.addEventListener("input", (e) => {
+      const el = e.target;
+      const slotId = el.dataset.slotId;
+      const action = el.dataset.action;
+      if (!slotId || action !== 'time') return;
+
+      const daySlots = state.timetable[selectedDayKey] || [];
+      const slot = daySlots.find(s => s.id === slotId);
+      if (!slot) return;
+
+      slot.time = el.value;
+      persistState(state);
+    });
+
+    ttSlotEditorList.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-action='delete']");
+      if (!btn) return;
+      const slotId = btn.dataset.slotId;
+      if (!slotId) return;
+
+      state.timetable[selectedDayKey] = (state.timetable[selectedDayKey] || []).filter(s => s.id !== slotId);
+      persistState(state);
+      renderTodayVoyage();
+      renderTimetable();
+      renderBunkRadar();
+      showToast("Removed class period");
+    });
+  }
+
+  const btnAddTtSlot = document.getElementById("btnAddTtSlot");
+  if (btnAddTtSlot){
+    btnAddTtSlot.addEventListener("click", () => {
+      if (!state.timetable[selectedDayKey]) state.timetable[selectedDayKey] = [];
+      const defaultSubId = state.subjects[0]?.id || "";
+      const slotCount = state.timetable[selectedDayKey].length;
+      const timeSuggestions = ["09:00 AM", "10:30 AM", "01:00 PM", "02:30 PM", "04:00 PM"];
+      const time = timeSuggestions[slotCount % timeSuggestions.length] || "09:00 AM";
+
+      state.timetable[selectedDayKey].push({
+        id: uid(),
+        subId: defaultSubId,
+        time: time
+      });
+      persistState(state);
+      renderTodayVoyage();
+      renderTimetable();
+      renderBunkRadar();
+      showToast(`Added class period to ${DAY_NAMES[selectedDayKey]}`);
+    });
+  }
+
+  const btnAutoDistributeTt = document.getElementById("btnAutoDistributeTt");
+  if (btnAutoDistributeTt){
+    btnAutoDistributeTt.addEventListener("click", () => {
+      if (!state.subjects || state.subjects.length === 0){
+        showToast("Add some subjects to your Fleet Logbook first!");
+        return;
+      }
+      const defaultTimes = ["09:00 AM", "10:30 AM", "01:00 PM", "02:30 PM"];
+      const days = ["1", "2", "3", "4", "5"]; // Mon-Fri
+      let subIdx = 0;
+
+      days.forEach(d => {
+        state.timetable[d] = [];
+        const numSlots = 3;
+        for (let i = 0; i < numSlots; i++){
+          const sub = state.subjects[subIdx % state.subjects.length];
+          state.timetable[d].push({
+            id: uid(),
+            subId: sub.id,
+            time: defaultTimes[i % defaultTimes.length]
+          });
+          subIdx++;
+        }
+      });
+      state.timetable["6"] = [];
+      persistState(state);
+      renderTodayVoyage();
+      renderTimetable();
+      renderBunkRadar();
+      showToast("Generated balanced Mon-Fri timetable from fleet!");
+    });
+  }
+
+  const btnClearTtDay = document.getElementById("btnClearTtDay");
+  if (btnClearTtDay){
+    btnClearTtDay.addEventListener("click", () => {
+      if (confirm(`Clear all scheduled periods for ${DAY_NAMES[selectedDayKey]}?`)){
+        state.timetable[selectedDayKey] = [];
+        persistState(state);
+        renderTodayVoyage();
+        renderTimetable();
+        renderBunkRadar();
+        showToast(`Cleared schedule for ${DAY_NAMES[selectedDayKey]}`);
+      }
+    });
+  }
+
   /* ================= 8. LOGBOOK OF THE FLEET (SUBJECT TRACKER) ================= */
   let activeTargetModalSubId = null;
   const targetModal = document.getElementById("targetModal");
@@ -2043,6 +3112,9 @@
       sub.target = (val >= 1 && val <= 100) ? val : null;
       persistState(state);
       renderFleetLogbook();
+    renderTodayVoyage();
+    renderTimetable();
+    renderBunkRadar();
       showToast("Subject threshold updated");
     }
     targetModal.hidden = true;
@@ -2157,6 +3229,9 @@
       playNauticalChime('attend');
       persistState(state);
       renderFleetLogbook();
+    renderTodayVoyage();
+    renderTimetable();
+    renderBunkRadar();
       showToast(`Marked ${sub.name || 'Course'}: Attended`);
     } else if (action === 'miss'){
       if (!sub.history) sub.history = [];
@@ -2165,6 +3240,9 @@
       playNauticalChime('miss');
       persistState(state);
       renderFleetLogbook();
+    renderTodayVoyage();
+    renderTimetable();
+    renderBunkRadar();
       showToast(`Marked ${sub.name || 'Course'}: Missed`);
     } else if (action === 'undo'){
       if (sub.history && sub.history.length > 0){
@@ -2174,6 +3252,9 @@
         playNauticalChime('click');
         persistState(state);
         renderFleetLogbook();
+    renderTodayVoyage();
+    renderTimetable();
+    renderBunkRadar();
         showToast("Undone last marking");
       }
     } else if (action === 'delete'){
@@ -2181,6 +3262,9 @@
         state.subjects = state.subjects.filter(s => s.id !== id);
         persistState(state);
         renderFleetLogbook();
+    renderTodayVoyage();
+    renderTimetable();
+    renderBunkRadar();
         showToast("Course removed");
       }
     } else if (action === 'target'){
@@ -2203,10 +3287,16 @@
       sub.held = inp.value;
       persistState(state);
       renderFleetLogbook();
+    renderTodayVoyage();
+    renderTimetable();
+    renderBunkRadar();
     } else if (action === 'attended'){
       sub.attended = inp.value;
       persistState(state);
       renderFleetLogbook();
+    renderTodayVoyage();
+    renderTimetable();
+    renderBunkRadar();
     }
   });
 
@@ -2221,6 +3311,9 @@
     });
     persistState(state);
     renderFleetLogbook();
+    renderTodayVoyage();
+    renderTimetable();
+    renderBunkRadar();
     showToast("Added new course to fleet");
   });
 
@@ -2229,6 +3322,9 @@
       state.subjects = [];
       persistState(state);
       renderFleetLogbook();
+    renderTodayVoyage();
+    renderTimetable();
+    renderBunkRadar();
       showToast("Fleet log cleared");
     }
   });
@@ -2255,6 +3351,9 @@
         const parsed = JSON.parse(event.target.result);
         if (parsed && (parsed.subjects || parsed.quick)){
           state = Object.assign(state, parsed);
+          if (!state.timetable || !state.timetable["1"]){
+            state.timetable = getDefaultTimetable(state.subjects);
+          }
           persistState(state);
           qTotal.value = state.quick.total || "";
           qAttended.value = state.quick.attended || "";
@@ -2307,7 +3406,9 @@
     let summary = `⚓ Bunkometer Captain's Dispatch\n`;
     summary += `Fleet Standing: ${fleet.pct.toFixed(1)}% (${sumAttended}/${sumHeld} classes)\n`;
     summary += `Target Threshold: ${req}%\n`;
-    summary += `Safe Bunk Allowance: ${fleet.safeBunks} classes (~${days} full days)\n\n`;
+    summary += `Safe Bunk Allowance: ${fleet.safeBunks} classes (~${days} full days)\n`;
+    const evalDay = evaluateDayBunk(selectedDayKey);
+    summary += `Schedule Feasibility (${DAY_NAMES[selectedDayKey]}): ${evalDay.verdict}\n\n`;
     state.subjects.forEach(s => {
       const h = parseInt(s.held,10)||0;
       const a = parseInt(s.attended,10)||0;
@@ -2327,6 +3428,7 @@
   const tabBtns = document.querySelectorAll(".tab-btn");
   const tabPanels = {
     dashboard: document.getElementById("tab-dashboard"),
+    timetable: document.getElementById("tab-timetable"),
     navigator: document.getElementById("tab-navigator"),
     simulator: document.getElementById("tab-simulator"),
     logbook: document.getElementById("tab-logbook")
